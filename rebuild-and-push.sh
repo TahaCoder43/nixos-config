@@ -1,10 +1,12 @@
 #!/usr/bin/env sh
 
-set -x
 commit_message=${1:-'Updating configuration.nix (likely)'}
 
 git add .
-# sudo nixos-rebuild switch
+
+if git status -s | grep configuration.nix; then # also acounts for hardwaree-configuration.nix remember
+    sudo nixos-rebuild switch
+fi
 
 if [[ $? -gt 0 ]]; then
     exit 1

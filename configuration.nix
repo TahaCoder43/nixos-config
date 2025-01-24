@@ -45,13 +45,24 @@ in
     ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  # boot.loader.systemd-boot.enable = true;
+  boot.loader = {
+    # efi = {
+    #   canTouchEfiVariables = true;
+    # };
+    grub = {
+      enable = true;
+      efiSupport = true;
+      device = "nodev"; # did not set it to /dev/sda because I could use this configuration on /dev/sdb (maybe it works like this)
+      efiInstallAsRemovable = true; # So grub can remove /boot/EFI/BOOT/BOOTX64.EFI, reference: https://discourse.nixos.org/t/change-bootloader-to-grub/49947/2
+    };
+  };
 
   
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  nix.settings.experimental-features  = ["nix-command" "flakes"];
 
   # Enable networking
   networking = { 
@@ -62,9 +73,13 @@ in
       settings = {
         General = {
           EnableNetworkConfiguration=true; # Use iwd built in dhcp client
+          AddressRandomization="disabled";
         };
         Network = {
           NameResolvingService="none"; # Prevent dynamic dns
+        };
+        DriverQuirks = {
+          PowerSaveDisable="iwlwifi"; # To solve weird disconnection issues
         };
       };
     };
@@ -73,6 +88,12 @@ in
     useDHCP = false;
     interfaces.wlan0 = { # iwd uses wlan0 instead of wlp2s0
       useDHCP = true; # The recommended way is to enable dhcp like this
+      # ipv4.addresses = [
+      #   {
+      #     address = "192.168.43.233";
+      #     prefixLength = 24;
+      #   }
+      # ];
     };
   };
 
@@ -99,7 +120,6 @@ in
     isNormalUser = true;
     description = "Taha ibn Munawar";
     extraGroups = [
-#      "networkmanager"
       "wheel"
     ];
     shell = pkgs.zsh;
@@ -118,14 +138,20 @@ in
   environment.etc = {
     "rofi/themes".source = "${pkgs.rofi-wayland}/share/rofi/themes";
   };
+  
 
   environment.systemPackages = with pkgs; [
     # install activity watch, keyviz, and flameshot now
     python312
-    unstable.python312Packages.notebook
     nodejs_23
     gcc
     gnumake
+    rustc
+    cargo
+    rustfmt
+    rust-analyzer
+
+    unstable.python312Packages.notebook
 
     vim 
     neovim

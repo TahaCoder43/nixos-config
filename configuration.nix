@@ -41,7 +41,7 @@ in
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+      /etc/nixos/hardware-configuration.nix
     ];
 
   # Bootloader.
@@ -216,6 +216,7 @@ in
   };
 
   programs.git.config = {
+    enable = true;
     init.defaultBranch = "main";
     user = {
       email = "taha-ibn-munawar@proton.me";
@@ -250,13 +251,13 @@ in
   # Configure keymap in X11
   # Not working :'(
   services.xserver.xkb = {
-    layout = "us,ara-ph";
-    options = "keypad:pointerkeys,lv3:caps_switch,grp:rctrl_toggle";
-    extraLayouts.ara-ph = {
-      description = "Arabic layout that is phonetically mapped to english";
-      languages = [ "ara" ];
-      symbolsFile = /home/taham/.layouts/ara-ph;
-    };
+   layout = "us,ara-ph";
+   options = "keypad:pointerkeys,lv3:caps_switch,grp:rctrl_toggle";
+   extraLayouts.ara-ph = {
+     description = "Arabic layout that is phonetically mapped to english";
+     languages = [ "ara" ];
+     symbolsFile = ./arabic-layout/ara-ph;
+   };
   };
 
   # Sound

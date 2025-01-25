@@ -171,6 +171,7 @@ in
     ripgrep # grep alternative
     libinput # to debug input events
     pciutils # provides lspci command to show usb device information
+    lshw
     exiftool
     ntfs3g # Required to be able to work with ntfs file system
     smartmontools # hard disk smart test runner

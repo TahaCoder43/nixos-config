@@ -161,6 +161,7 @@ in
     # mypkgs.gauth
 
     zsh
+    antigen
     kitty
     foot
     tmux
@@ -229,7 +230,12 @@ in
       run ${mypkgs.tmux-plugin-manager}/share/tmux-plugins/tpm/tpm
     '';
   };
-  programs.zsh.enable = true;
+  programs.zsh = {
+    enable = true;
+    shellInit = ''
+      source ${pkgs.antigen}/share/antigen/antigen.zsh
+    '';
+  };
   programs.firefox.enable = true;
   programs.ssh.startAgent = true;
   programs.ydotool.enable = true;
@@ -252,6 +258,7 @@ in
   # Not working :'(
   services.xserver.xkb = {
    layout = "us,ara-ph";
+   # optoins aren't working idk why
    options = "keypad:pointerkeys,lv3:caps_switch,grp:rctrl_toggle";
    extraLayouts.ara-ph = {
      description = "Arabic layout that is phonetically mapped to english";

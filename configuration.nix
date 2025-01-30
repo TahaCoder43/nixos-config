@@ -4,7 +4,11 @@
 { config, pkgs, lib, ... }:
 
 let
-  unstable = import (fetchTarball https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz) { config.allowUnfree = true;};
+  unstable = import (fetchTarball {
+    name = "nixos-unstable";
+    url = "https://github.com/NixOS/nixpkgs/archive/0aa475546ed21629c4f5bbf90e38c846a99ec9e9.tar.gz";
+    sha256 = "0vqzingl03yz185112lw0hf8idggkwxc6bjswgvyhjc6yx0pvhnz";
+  }) { config.allowUnfree = true;};
   mypkgs = {
     fonts = {
       serenity-os-emoji = pkgs.stdenvNoCC.mkDerivation rec {
@@ -46,6 +50,10 @@ in
 
   # Bootloader.
   # boot.loader.systemd-boot.enable = true;
+  boot.extraModprobeConfig = ''
+    options iwlwifi power_save=0
+  '';
+  boot.kernelParams = [ "pcie_aspm=off" "pcie_port_pm=off" ];
   boot.loader = {
     # efi = {
     #   canTouchEfiVariables = true;
@@ -81,6 +89,11 @@ in
         DriverQuirks = {
           PowerSaveDisable="iwlwifi"; # To solve weird disconnection issues
         };
+        Blacklist = {
+          InitialTimeout = 2;
+          Multiplier = 2;
+          MaximumTimeout = 5;
+        };
       };
     };
     dhcpcd.enable = false;
@@ -88,12 +101,12 @@ in
     useDHCP = false;
     interfaces.wlan0 = { # iwd uses wlan0 instead of wlp2s0
       useDHCP = true; # The recommended way is to enable dhcp like this
-      # ipv4.addresses = [
-      #   {
-      #     address = "192.168.43.233";
-      #     prefixLength = 24;
-      #   }
-      # ];
+      ipv4.addresses = [
+        {
+          address = "192.168.43.233";
+          prefixLength = 24;
+        }
+      ];
     };
   };
 
@@ -186,6 +199,7 @@ in
     unstable.inkscape
     gimp
     filelight
+    vlc
     sqlitebrowser
     unstable.activitywatch # for some reason stable version failed to build, meanwhile unstable succeded ????
     awatcher
@@ -249,7 +263,8 @@ in
     ];
     fontconfig.defaultFonts = {
       monospace = [ "Iosevka Nerd Font" ];
-      sansSerif = [ "Poppins" ];
+      sansSerif = [ "Noto Sans" "Noto Kufi Arabic" ];
+      serif = [ "Noto Serif" "Noto Kufi Arabic"];
       emoji = [ "SerenityOS Emoji" ];
     };
   };

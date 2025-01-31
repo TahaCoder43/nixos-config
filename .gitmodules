@@ -1,0 +1,3 @@
+[submodule "easy-arabic-keyboard-layout"]
+	path = easy-arabic-keyboard-layout
+	url = https://github.com/tahacoder43/easy-arabic-keyboard-layout

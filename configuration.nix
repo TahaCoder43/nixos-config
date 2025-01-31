@@ -8,10 +8,29 @@ let
     name = "nixos-unstable";
     url = "https://github.com/NixOS/nixpkgs/archive/0aa475546ed21629c4f5bbf90e38c846a99ec9e9.tar.gz";
     sha256 = "0vqzingl03yz185112lw0hf8idggkwxc6bjswgvyhjc6yx0pvhnz";
-  }) { config.allowUnfree = true;};
+  }) { config.allowUnfree = true; system = "x86_64-linux"; };
   mypkgs = {
+    easy-arabic-keyboard-layout = pkgs.stdenvNoCC.mkDerivation {
+      pname = "easy-arabic-keyboard-layout";
+      version = "1.0";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "TahaCoder43";
+        repo = "easy-arabic-keyboard-layout";
+        rev = "fd4b7a4c3933470f3b9cc726d4f5d82a7ae54956";
+        hash = "sha256-8rcXUoUqigMtusbFirtTQ4UmMeWem+Knd0G/djvI3LE=";
+      };
+
+      dontBuild = true;
+
+      installPhase = ''
+        runHook preInstall
+        install -Dm644 $src/* -t $out/share/X11/xkb/symbols/
+        runHook postInstall
+      '';
+    };
     fonts = {
-      serenity-os-emoji = pkgs.stdenvNoCC.mkDerivation rec {
+      serenity-os-emoji = pkgs.stdenvNoCC.mkDerivation {
         pname = "serenity-os-emoji";
         version = "1.0";
 
@@ -45,7 +64,7 @@ in
 {
   imports =
     [ # Include the results of the hardware scan.
-      /etc/nixos/hardware-configuration.nix
+      ./hardware-configuration.nix
     ];
 
   # Bootloader.
@@ -203,7 +222,8 @@ in
     sqlitebrowser
     unstable.activitywatch # for some reason stable version failed to build, meanwhile unstable succeded ????
     awatcher
-        # libsForQt5.qt5.qtwayland
+    mypkgs.easy-arabic-keyboard-layout
+    # libsForQt5.qt5.qtwayland
   ];
 
   programs.sway = {
@@ -221,6 +241,7 @@ in
       sway-contrib.grimshot
 
       rofi-wayland
+            # manually install flameshot to include USE_WAYLAND_GRIM, like here https://github.com/NixOS/nixpkgs/issues/292700#issuecomment-1974953531
       flameshot
       slurp
       wf-recorder
@@ -278,7 +299,7 @@ in
    extraLayouts.ara-ph = {
      description = "Arabic layout that is phonetically mapped to english";
      languages = [ "ara" ];
-     symbolsFile = ./arabic-layout/ara-ph;
+     symbolsFile = "${mypkgs.easy-arabic-keyboard-layout}/share/X11/xkb/symbols/ara-ph";
    };
   };
 

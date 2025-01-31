@@ -182,6 +182,7 @@ in
     cargo
     rustfmt
     rust-analyzer
+    nil
 
     unstable.python312Packages.notebook
 

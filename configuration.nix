@@ -224,8 +224,14 @@ in
     unstable.activitywatch # for some reason stable version failed to build, meanwhile unstable succeded ????
     awatcher
     mypkgs.easy-arabic-keyboard-layout
+    hyprland
+    hyprpaper
+    waybar
+    brightnessctl
     # libsForQt5.qt5.qtwayland
   ];
+
+  programs.hyprland.enable = true;
 
   programs.sway = {
     enable = true;

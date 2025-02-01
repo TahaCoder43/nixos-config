@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 
-{
+rec {
   # TODO please change the username & home directory to your own
   home.username = "taham";
   home.homeDirectory = "/home/taham";
@@ -31,6 +31,19 @@
       user.name = "Taha ibn Munawar";
       user.email =  "taha-ibn-munawar@proton.me";
       init.defaultBranch = "main";
+    };
+  };
+
+  programs.ssh = {
+    enable = true;
+    addKeysToAgent = "yes";
+  };
+
+  services.hyprpaper = {
+    enable = true;
+    settings = {
+      preload = "${home.homeDirectory}/.config/hypr/background.jpeg";
+      wallpaper = ", ${home.homeDirectory}/.config/hypr/background.jpeg";
     };
   };
 

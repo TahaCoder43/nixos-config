@@ -302,7 +302,7 @@ in
       monospace = [ "Iosevka Nerd Font" ];
       sansSerif = [ "Noto Sans" "Noto Kufi Arabic" ];
       serif = [ "Noto Serif" "Noto Kufi Arabic"];
-      emoji = [ "SerenityOS Emoji" "Noto Color Emoji" "Noto Emoji" ];
+      emoji = [ "JoyPixels" "SerenityOS Emoji" "Noto Color Emoji" "Noto Emoji" ];
     };
   };
 

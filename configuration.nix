@@ -17,8 +17,8 @@ let
       src = pkgs.fetchFromGitHub {
         owner = "TahaCoder43";
         repo = "easy-arabic-keyboard-layout";
-        rev = "fd4b7a4c3933470f3b9cc726d4f5d82a7ae54956";
-        hash = "sha256-8rcXUoUqigMtusbFirtTQ4UmMeWem+Knd0G/djvI3LE=";
+        rev = "a96ee639180041750298ff1c13e36c645ef09eea";
+        hash = "sha256-qQRH2bKALIHYExfLKLDNO9UEJXoAuDLZG8um50yqmBI=";
       };
 
       dontBuild = true;
@@ -293,7 +293,7 @@ in
       monospace = [ "Iosevka Nerd Font" ];
       sansSerif = [ "Noto Sans" "Noto Kufi Arabic" ];
       serif = [ "Noto Serif" "Noto Kufi Arabic"];
-      emoji = [ "SerenityOS Emoji" ];
+      emoji = [ "SerenityOS Emoji" "Noto Color Emoji" "Noto Emoji" ];
     };
   };
 

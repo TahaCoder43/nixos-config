@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config,  pkgs, ... }:
 
 rec {
   # TODO please change the username & home directory to your own
@@ -23,6 +23,7 @@ rec {
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
   ];
+
 
   # basic configuration of git, please change to your own
   programs.git = {

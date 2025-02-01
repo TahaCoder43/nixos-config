@@ -282,9 +282,18 @@ in
   programs.ssh.startAgent = true;
   programs.ydotool.enable = true;
 
+  # in your home.nix
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (lib.getName pkg) [
+      "joypixels"
+    ];
+  nixpkgs.config.joypixels.acceptLicense = true;
+
   fonts = {
     packages = with pkgs; [
       poppins
+      joypixels
       unstable.nerd-fonts.iosevka
       mypkgs.fonts.serenity-os-emoji
       google-fonts # all google fonts downloaded, good for designing

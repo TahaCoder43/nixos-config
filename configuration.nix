@@ -10,6 +10,26 @@ let
     sha256 = "0vqzingl03yz185112lw0hf8idggkwxc6bjswgvyhjc6yx0pvhnz";
   }) { config.allowUnfree = true; system = "x86_64-linux"; };
   mypkgs = {
+    more-rofi-themes = pkgs.stdenvNoCC.mkDerivation {
+      pname = "more-rofi-themes";
+      version = "1.0";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "adi1090x";
+        repo = "rofi";
+        rev = "2e0efe5054ac7eb502a585dd6b3575a65b80ce72";
+        hash = "sha256-TVZ7oTdgZ6d9JaGGa6kVkK7FMjNeuhVTPNj2d7zRWzM=";
+      };
+
+      dontBuild = true;
+
+      installPhase = ''
+        runHook preInstall
+        mkdir -p $out/share/rofi/
+        cp -r $src/files $out/share/rofi/themes
+        runHook postInstall
+      '';
+    };
     easy-arabic-keyboard-layout = pkgs.stdenvNoCC.mkDerivation {
       pname = "easy-arabic-keyboard-layout";
       version = "1.0";
@@ -184,7 +204,6 @@ in
     rust-analyzer
     nil
 
-    unstable.python312Packages.notebook
 
     vim 
     neovim
@@ -223,11 +242,16 @@ in
     sqlitebrowser
     unstable.activitywatch # for some reason stable version failed to build, meanwhile unstable succeded ????
     awatcher
+    unstable.python312Packages.notebook
     mypkgs.easy-arabic-keyboard-layout
+    # obsidian
+
     hyprland
     hyprpaper
     waybar
     brightnessctl
+    rofimoji
+    mypkgs.more-rofi-themes
     # libsForQt5.qt5.qtwayland
   ];
 
@@ -308,15 +332,27 @@ in
 
   # Configure keymap in X11
   # Not working :'(
-  services.xserver.xkb = {
-   layout = "us,ara-ph";
-   # optoins aren't working idk why
-   options = "keypad:pointerkeys,lv3:caps_switch,grp:rctrl_toggle";
-   extraLayouts.ara-ph = {
-     description = "Arabic layout that is phonetically mapped to english";
-     languages = [ "ara" ];
-     symbolsFile = "${mypkgs.easy-arabic-keyboard-layout}/share/X11/xkb/symbols/ara-ph";
-   };
+  services.xserver = {
+    enable = true;
+    displayManager.lightdm = {
+      enable = true;
+      greeter.name = "lightdm-deepin-greeter";
+      # extraConfig = ''
+      #   [SEAT:*]
+      #   greeter-session=lightdm-deepin-greeter
+      # ''; 
+    };
+    desktopManager.deepin.enable = true;
+    xkb = {
+      layout = "us,ara-ph";
+      # optoins aren't working idk why
+      options = "keypad:pointerkeys,lv3:caps_switch,grp:rctrl_toggle";
+      extraLayouts.ara-ph = {
+         description = "Arabic layout that is phonetically mapped to english";
+         languages = [ "ara" ];
+         symbolsFile = "${mypkgs.easy-arabic-keyboard-layout}/share/X11/xkb/symbols/ara-ph";
+      };
+    };
   };
 
   # Sound

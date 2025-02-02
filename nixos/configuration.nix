@@ -85,6 +85,9 @@ in
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      (import ./modules/hyprland.nix {inherit pkgs mypkgs; })
+      (import ./modules/xserver.nix {inherit config pkgs mypkgs;})
+      ./modules/networking.nix
     ];
 
   # Bootloader.
@@ -110,44 +113,6 @@ in
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
   nix.settings.experimental-features  = ["nix-command" "flakes"];
-
-  # Enable networking
-  networking = { 
-    nameservers = [ "1.1.1.1" ]; # Set static dns to cloud flare
-    hostName = "nixos";
-    wireless.iwd = {
-      enable = true;
-      settings = {
-        General = {
-          EnableNetworkConfiguration=true; # Use iwd built in dhcp client
-          AddressRandomization="disabled";
-        };
-        Network = {
-          NameResolvingService="none"; # Prevent dynamic dns
-        };
-        DriverQuirks = {
-          PowerSaveDisable="iwlwifi"; # To solve weird disconnection issues
-        };
-        Blacklist = {
-          InitialTimeout = 2;
-          Multiplier = 2;
-          MaximumTimeout = 5;
-        };
-      };
-    };
-    dhcpcd.enable = false;
-    resolvconf.enable = false; # enabled by default and overrides network.nameservers with dynamic dns
-    useDHCP = false;
-    interfaces.wlan0 = { # iwd uses wlan0 instead of wlp2s0
-      useDHCP = true; # The recommended way is to enable dhcp like this
-      ipv4.addresses = [
-        {
-          address = "192.168.43.233";
-          prefixLength = 24;
-        }
-      ];
-    };
-  };
 
   # Set your time zone.
   time.timeZone = "Asia/Karachi";
@@ -245,17 +210,7 @@ in
     unstable.python312Packages.notebook
     mypkgs.easy-arabic-keyboard-layout
     # obsidian
-
-    hyprland
-    hyprpaper
-    waybar
-    brightnessctl
-    rofimoji
-    mypkgs.more-rofi-themes
-    # libsForQt5.qt5.qtwayland
   ];
-
-  programs.hyprland.enable = true;
 
   programs.sway = {
     enable = true;
@@ -332,28 +287,7 @@ in
 
   # Configure keymap in X11
   # Not working :'(
-  services.xserver = {
-    enable = true;
-    displayManager.lightdm = {
-      enable = true;
-      greeter.name = "lightdm-deepin-greeter";
-      # extraConfig = ''
-      #   [SEAT:*]
-      #   greeter-session=lightdm-deepin-greeter
-      # ''; 
-    };
-    desktopManager.deepin.enable = true;
-    xkb = {
-      layout = "us,ara-ph";
-      # optoins aren't working idk why
-      options = "keypad:pointerkeys,lv3:caps_switch,grp:rctrl_toggle";
-      extraLayouts.ara-ph = {
-         description = "Arabic layout that is phonetically mapped to english";
-         languages = [ "ara" ];
-         symbolsFile = "${mypkgs.easy-arabic-keyboard-layout}/share/X11/xkb/symbols/ara-ph";
-      };
-    };
-  };
+  # services.displayManager.enable = true;
 
   # Sound
   security.rtkit.enable = true;

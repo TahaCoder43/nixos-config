@@ -1,15 +1,57 @@
 # Edit this configuration file to define what should be installed on your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
-  unstable = import (fetchTarball {
-    name = "nixos-unstable";
-    url = "https://github.com/NixOS/nixpkgs/archive/0aa475546ed21629c4f5bbf90e38c846a99ec9e9.tar.gz";
-    sha256 = "0vqzingl03yz185112lw0hf8idggkwxc6bjswgvyhjc6yx0pvhnz";
-  }) { config.allowUnfree = true; system = "x86_64-linux"; };
+  unstable =
+    import
+      (fetchTarball {
+        name = "nixos-unstable";
+        url = "https://github.com/NixOS/nixpkgs/archive/0aa475546ed21629c4f5bbf90e38c846a99ec9e9.tar.gz";
+        sha256 = "0vqzingl03yz185112lw0hf8idggkwxc6bjswgvyhjc6yx0pvhnz";
+      })
+      {
+        config.allowUnfree = true;
+        system = "x86_64-linux";
+      };
   mypkgs = {
+    obsidian-appimage =
+      let
+        #https://github.com/obsidianmd/obsidian-releases/releases/download/v1.8.4/Obsidian-1.8.4.AppImage
+        version = "1.8.4";
+        pname = "Obsidian";
+
+        src = pkgs.fetchurl {
+          url = "https://github.com/obsidianmd/obsidian-releases/releases/download/v${version}/${pname}-${version}.AppImage";
+          hash = "sha256-f4waZvA/li0MmXVGj41qJZMZ7N31epa3jtvVoODmnKQ=";
+        };
+        
+        appimageContents = pkgs.appimageTools.extract {
+          inherit pname version src;
+        };
+      in
+      pkgs.appimageTools.wrapType2 {
+        inherit pname version src;
+        extraInstallCommands = ''
+          ls $out/bin
+          ls ${appimageContents}
+          install -m 444 -D ${appimageContents}/obsidian.desktop $out/share/applications/obsidian.desktop
+          install -m 444 -D ${appimageContents}/usr/share/icons/hicolor/512x512/apps/obsidian.png \
+            $out/share/icons/hicolor/512x512/apps/obsidian.png
+          echo fails happens at substituting
+          ls $out/share/applications/
+          echo ${pname}
+          substituteInPlace $out/share/applications/obsidian.desktop \
+            --replace-fail 'Exec=AppRun' 'Exec=${pname}'
+          echo fail happens after extraInstallCommands
+        '';
+      };
     more-rofi-themes = pkgs.stdenvNoCC.mkDerivation {
       pname = "more-rofi-themes";
       version = "1.0";
@@ -82,20 +124,23 @@ let
   };
 in
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      (import ./modules/hyprland.nix {inherit pkgs mypkgs; })
-      (import ./modules/xserver.nix {inherit config pkgs mypkgs;})
-      ./modules/networking.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    (import ./modules/hyprland.nix { inherit pkgs mypkgs; })
+    (import ./modules/xserver.nix { inherit config pkgs mypkgs; })
+    ./modules/networking.nix
+  ];
 
   # Bootloader.
   # boot.loader.systemd-boot.enable = true;
   boot.extraModprobeConfig = ''
     options iwlwifi power_save=0
   '';
-  boot.kernelParams = [ "pcie_aspm=off" "pcie_port_pm=off" ];
+  boot.kernelParams = [
+    "pcie_aspm=off"
+    "pcie_port_pm=off"
+  ];
   boot.loader = {
     # efi = {
     #   canTouchEfiVariables = true;
@@ -108,11 +153,13 @@ in
     };
   };
 
-  
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-  nix.settings.experimental-features  = ["nix-command" "flakes"];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Set your time zone.
   time.timeZone = "Asia/Karachi";
@@ -155,7 +202,6 @@ in
   environment.etc = {
     "rofi/themes".source = "${pkgs.rofi-wayland}/share/rofi/themes";
   };
-  
 
   environment.systemPackages = with pkgs; [
     # install activity watch, keyviz, and flameshot now
@@ -168,9 +214,9 @@ in
     rustfmt
     rust-analyzer
     nil
+    nixfmt-rfc-style
 
-
-    vim 
+    vim
     neovim
     btop
     gitui
@@ -196,8 +242,10 @@ in
     fzf
     jq
     ruff # python linter
-    dig 
+    dig
     iftop
+    iotop
+    appimage-run
 
     microsoft-edge
     unstable.inkscape
@@ -209,12 +257,12 @@ in
     awatcher
     unstable.python312Packages.notebook
     mypkgs.easy-arabic-keyboard-layout
-    # obsidian
+    mypkgs.obsidian-appimage
   ];
 
   programs.sway = {
     enable = true;
-    #wrappersFeatures.gtk = true; if gtk fails turn this on 
+    #wrappersFeatures.gtk = true; if gtk fails turn this on
     # figure out whether to use this or .zprofile
     extraSessionCommands = ''
       export SDL_VIDEODRIVER=wayland
@@ -227,7 +275,7 @@ in
       sway-contrib.grimshot
 
       rofi-wayland
-            # manually install flameshot to include USE_WAYLAND_GRIM, like here https://github.com/NixOS/nixpkgs/issues/292700#issuecomment-1974953531
+      # manually install flameshot to include USE_WAYLAND_GRIM, like here https://github.com/NixOS/nixpkgs/issues/292700#issuecomment-1974953531
       flameshot
       slurp
       wf-recorder
@@ -245,7 +293,7 @@ in
       name = "Taha ibn Munawar";
     };
   };
-  programs.tmux =  {
+  programs.tmux = {
     enable = true;
     extraConfig = ''
       run ${mypkgs.tmux-plugin-manager}/share/tmux-plugins/tpm/tpm
@@ -279,9 +327,20 @@ in
     ];
     fontconfig.defaultFonts = {
       monospace = [ "Iosevka Nerd Font" ];
-      sansSerif = [ "Noto Sans" "Noto Kufi Arabic" ];
-      serif = [ "Noto Serif" "Noto Kufi Arabic"];
-      emoji = [ "JoyPixels" "SerenityOS Emoji" "Noto Color Emoji" "Noto Emoji" ];
+      sansSerif = [
+        "Noto Sans"
+        "Noto Kufi Arabic"
+      ];
+      serif = [
+        "Noto Serif"
+        "Noto Kufi Arabic"
+      ];
+      emoji = [
+        "JoyPixels"
+        "SerenityOS Emoji"
+        "Noto Color Emoji"
+        "Noto Emoji"
+      ];
     };
   };
 
@@ -297,9 +356,9 @@ in
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-  
-    # hardware.pulseaudio.enable = true;
-    #hardware.pulseaudio.support32Bit = true;    ## If compatibility with 32-bit applications is desired.
+
+  # hardware.pulseaudio.enable = true;
+  #hardware.pulseaudio.support32Bit = true;    ## If compatibility with 32-bit applications is desired.
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

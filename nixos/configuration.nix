@@ -31,7 +31,7 @@ let
           url = "https://github.com/obsidianmd/obsidian-releases/releases/download/v${version}/${pname}-${version}.AppImage";
           hash = "sha256-f4waZvA/li0MmXVGj41qJZMZ7N31epa3jtvVoODmnKQ=";
         };
-        
+
         appimageContents = pkgs.appimageTools.extract {
           inherit pname version src;
         };
@@ -206,6 +206,7 @@ in
   environment.systemPackages = with pkgs; [
     # install activity watch, keyviz, and flameshot now
     python312
+    ruff # python linter
     nodejs_23
     gcc
     gnumake
@@ -213,6 +214,7 @@ in
     cargo
     rustfmt
     rust-analyzer
+    sqlite
     nil
     nixfmt-rfc-style
 
@@ -230,22 +232,27 @@ in
     tmux
     mypkgs.tmux-plugin-manager
 
+    # Dev tools
     git
     wget
     ripgrep # grep alternative
+    fzf
+    jq
+    tree
+    appimage-run
+    # remember to add zoxide
+
+    # utility tools
+    dig
+    iftop
+    iotop
     libinput # to debug input events
     pciutils # provides lspci command to show usb device information
     lshw
     exiftool
+    file
     ntfs3g # Required to be able to work with ntfs file system
     smartmontools # hard disk smart test runner
-    fzf
-    jq
-    ruff # python linter
-    dig
-    iftop
-    iotop
-    appimage-run
 
     microsoft-edge
     unstable.inkscape

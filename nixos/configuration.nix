@@ -316,6 +316,8 @@ in
   programs.ssh.startAgent = true;
   programs.ydotool.enable = true;
 
+  virtualisation.waydroid.enable = true;
+
   # in your home.nix
   nixpkgs.config.allowUnfreePredicate =
     pkg:

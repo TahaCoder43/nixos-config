@@ -33,6 +33,9 @@ in
 {
   virtualisation.waydroid.enable = true;
   environment.systemPackages = [ lineage_vanilla_waydroid_image ];
-  environment.etc."waydroid-extra/images".source = "${lineage_vanilla_waydroid_image}";
-  # "${lineage_vanilla_waydroid_image}/etc/waydroid-extra/images";
+  system.activationScripts.waydroidImage.text = ''
+    mkdir -p /etc/waydroid-extra/images
+    ln -sfn ${lineage_vanilla_waydroid_image}/system.img /etc/waydroid-extra/images/system.img
+  '';
+  # environment.etc."waydroid-extra/images".source = "${lineage_vanilla_waydroid_image}";
 }

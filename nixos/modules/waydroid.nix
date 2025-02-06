@@ -32,10 +32,11 @@ let
 in
 {
   virtualisation.waydroid.enable = true;
-  environment.systemPackages = [ lineage_vanilla_waydroid_image ];
+  # environment.systemPackages = [ lineage_vanilla_waydroid_image ];
   system.activationScripts.waydroidImage.text = ''
     mkdir -p /etc/waydroid-extra/images
-    ln -sfn ${lineage_vanilla_waydroid_image}/system.img /etc/waydroid-extra/images/system.img
+    rm -rf /etc/waydroid-extra/images/system.img
+    cp ${lineage_vanilla_waydroid_image}/system.img /etc/waydroid-extra/images/system.img
   '';
   # environment.etc."waydroid-extra/images".source = "${lineage_vanilla_waydroid_image}";
 }

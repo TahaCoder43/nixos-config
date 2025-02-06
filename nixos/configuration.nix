@@ -130,6 +130,7 @@ in
     (import ./modules/hyprland.nix { inherit pkgs mypkgs; })
     (import ./modules/xserver.nix { inherit config pkgs mypkgs; })
     ./modules/networking.nix
+    ./modules/waydroid.nix
   ];
 
   # Bootloader.
@@ -315,8 +316,6 @@ in
   programs.firefox.enable = true;
   programs.ssh.startAgent = true;
   programs.ydotool.enable = true;
-
-  virtualisation.waydroid.enable = true;
 
   # in your home.nix
   nixpkgs.config.allowUnfreePredicate =

@@ -3,16 +3,27 @@
 { pkgs, ... }:
 let
   mirror = "onboardcloud";
-  page = "https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_x86_64";
-  lineage_vanilla_waydroid_image = pkgs.stdenvNoCC.mkDerivation rec {
+  page = "https://sourceforge.net/projects/waydroid/files/images";
+  lineage_vanilla_waydroid_images = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "lineage_vanilla_waydroid_image";
     version = "18.1-20250201";
 
-    src = pkgs.fetchzip {
-      url = "${page}/lineage-${version}-VANILLA-waydroid_x86_64-system.zip/download?use_mirror=${mirror}";
-      hash = "sha256-6F7rtfYkn+teX62opw2vBT0r6hv4t5AX2nOZnnPjVwc=";
-      extension = "zip";
-    };
+    srcs = [
+      (pkgs.fetchzip {
+        name = "system"; # needs to be specified to fetch multiple src
+        url = "${page}/system/lineage/waydroid_x86_64/lineage-${version}-VANILLA-waydroid_x86_64-system.zip/download?use_mirror=${mirror}";
+        hash = "sha256-6F7rtfYkn+teX62opw2vBT0r6hv4t5AX2nOZnnPjVwc=";
+        extension = "zip";
+      })
+      (pkgs.fetchzip {
+        name = "vendor";
+        url = "${page}/vendor/waydroid_x86_64/lineage-${version}-MAINLINE-waydroid_x86_64-vendor.zip/download?use_mirror=${mirror}";
+        hash = "sha256-MikKJgs7iLNC8puJF3GB7gaKqNNIB6gY67guYS1lrqU=";
+        extension = "zip";
+      })
+    ];
+
+    sourceRoot = ".";
 
     dontBuild = true;
 
@@ -21,10 +32,15 @@ let
 
       # export zippath=$out/etc/waydroid-extra/images
       # mkdir $out
-      echo $src
-      ls $src
+      # echo $src
+      # find $src
+      echo $srcs
+      find $srcs
       # find $src -type f -exec sh -c "outpath=$zippath/$(echo {} | sed 's/$src\///') echo installing {} at $outpath; install -m644 {} -Dt $outpath" \;
-      install -m644 $src/* -Dt $out
+      # install -m644 $src/* -Dt $out
+      for src in $(echo $srcs | sed "s/ /\n/"); do
+        install -m644 $src/*.img -Dt $out
+      done;
 
       runHook postInstall
     '';
@@ -35,8 +51,12 @@ in
   # environment.systemPackages = [ lineage_vanilla_waydroid_image ];
   system.activationScripts.waydroidImage.text = ''
     mkdir -p /etc/waydroid-extra/images
-    rm -rf /etc/waydroid-extra/images/system.img
-    cp ${lineage_vanilla_waydroid_image}/system.img /etc/waydroid-extra/images/system.img
+    # rm -rf /etc/waydroid-extra/images/system.img
+    # rm -rf /etc/waydroid-extra/images/vendor.img
+    # cp ${lineage_vanilla_waydroid_images}/system.img /etc/waydroid-extra/images/system.img
+    # cp ${lineage_vanilla_waydroid_images}/vendor.img /etc/waydroid-extra/images/vendor.img
+    ln -sfn ${lineage_vanilla_waydroid_images}/system.img /etc/waydroid-extra/images/system.img
+    ln -sfn ${lineage_vanilla_waydroid_images}/vendor.img /etc/waydroid-extra/images/vendor.img
   '';
   # environment.etc."waydroid-extra/images".source = "${lineage_vanilla_waydroid_image}";
 }

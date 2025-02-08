@@ -215,6 +215,7 @@ in
     cargo
     rustfmt
     rust-analyzer
+    lldb
     sqlite
     nil
     nixfmt-rfc-style

@@ -30,14 +30,6 @@ let
     installPhase = ''
       runHook preInstall
 
-      # export zippath=$out/etc/waydroid-extra/images
-      # mkdir $out
-      # echo $src
-      # find $src
-      echo $srcs
-      find $srcs
-      # find $src -type f -exec sh -c "outpath=$zippath/$(echo {} | sed 's/$src\///') echo installing {} at $outpath; install -m644 {} -Dt $outpath" \;
-      # install -m644 $src/* -Dt $out
       for src in $(echo $srcs | sed "s/ /\n/"); do
         install -m644 $src/*.img -Dt $out
       done;
@@ -51,10 +43,6 @@ in
   # environment.systemPackages = [ lineage_vanilla_waydroid_image ];
   system.activationScripts.waydroidImage.text = ''
     mkdir -p /etc/waydroid-extra/images
-    # rm -rf /etc/waydroid-extra/images/system.img
-    # rm -rf /etc/waydroid-extra/images/vendor.img
-    # cp ${lineage_vanilla_waydroid_images}/system.img /etc/waydroid-extra/images/system.img
-    # cp ${lineage_vanilla_waydroid_images}/vendor.img /etc/waydroid-extra/images/vendor.img
     ln -sfn ${lineage_vanilla_waydroid_images}/system.img /etc/waydroid-extra/images/system.img
     ln -sfn ${lineage_vanilla_waydroid_images}/vendor.img /etc/waydroid-extra/images/vendor.img
   '';

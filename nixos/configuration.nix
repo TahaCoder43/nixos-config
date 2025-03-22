@@ -205,6 +205,7 @@ in
     description = "Taha ibn Munawar";
     extraGroups = [
       "wheel"
+      "keyd"
     ];
     shell = pkgs.zsh;
     packages = with pkgs; [

@@ -5,6 +5,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 
@@ -21,6 +22,24 @@ let
         system = "x86_64-linux";
       };
   mypkgs = {
+    swhkd = pkgs.rustPlatform.buildRustPackage rec {
+      pname = "swhkd";
+      version = "1.2.1";
+      # nativeBuildInputs =
+      # buildInputs = with pkgs; [
+      #   cargo
+      # ];
+
+      src = pkgs.fetchFromGitHub {
+        owner = "waycrate";
+        repo = "swhkd";
+        tag = version;
+        hash = "sha256-VQW01j2RxhLUx59LAopZEdA7TyZBsJrF1Ym3LumvFqA=";
+      };
+
+      cargoHash = "sha256-NAVqwYJA0+X0dFC3PBaW+QJxvJtSgl4Y/VNfNO3jnLA=";
+
+    };
     obsidian-appimage =
       let
         #https://github.com/obsidianmd/obsidian-releases/releases/download/v1.8.4/Obsidian-1.8.4.AppImage
@@ -255,6 +274,7 @@ in
     file
     ntfs3g # Required to be able to work with ntfs file system
     smartmontools # hard disk smart test runner
+    mypkgs.swhkd # Hotkey daemon
 
     microsoft-edge
     unstable.inkscape

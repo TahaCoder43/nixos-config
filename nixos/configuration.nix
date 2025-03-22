@@ -150,6 +150,7 @@ in
     (import ./modules/xserver.nix { inherit config pkgs mypkgs; })
     ./modules/networking.nix
     ./modules/waydroid.nix
+    ./modules/keyd.nix
   ];
 
   # Bootloader.
@@ -205,7 +206,6 @@ in
     description = "Taha ibn Munawar";
     extraGroups = [
       "wheel"
-      "keyd"
     ];
     shell = pkgs.zsh;
     packages = with pkgs; [
@@ -215,7 +215,6 @@ in
 
   users.groups = {
     ydotool.members = [ "taham" ];
-    keyd.members = [ "taham" ];
   };
 
   # Allow unfree packages
@@ -277,7 +276,6 @@ in
     ntfs3g # Required to be able to work with ntfs file system
     smartmontools # hard disk smart test runner
     mypkgs.swhkd # Hotkey daemon
-    keyd # Hotkey daemon
 
     microsoft-edge
     unstable.inkscape
@@ -340,10 +338,6 @@ in
   programs.firefox.enable = true;
   programs.ssh.startAgent = true;
   programs.ydotool.enable = true;
-  services.keyd.enable = true; # Hotkey daemon
-  systemd.services.keyd.serviceConfig.CapabilityBoundingSet = [
-    "CAP_SETGID" # see this issue https://github.com/NixOS/nixpkgs/issues/290161
-  ];
 
   # in your home.nix
   nixpkgs.config.allowUnfreePredicate =

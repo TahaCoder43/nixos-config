@@ -15,7 +15,7 @@
   ];
 
   environment.etc = {
-    "keyd/hp-gaming-keyboard-fix".text = ''
+    "keyd/hp-gaming-keyboard-fix.conf".text = ''
       # Base layer (default state)
       [ids]
 

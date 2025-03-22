@@ -341,6 +341,9 @@ in
   programs.ssh.startAgent = true;
   programs.ydotool.enable = true;
   services.keyd.enable = true; # Hotkey daemon
+  systemd.services.keyd.serviceConfig.CapabilityBoundingSet = [
+    "CAP_SETGID" # see this issue https://github.com/NixOS/nixpkgs/issues/290161
+  ];
 
   # in your home.nix
   nixpkgs.config.allowUnfreePredicate =

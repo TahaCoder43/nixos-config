@@ -275,6 +275,7 @@ in
     ntfs3g # Required to be able to work with ntfs file system
     smartmontools # hard disk smart test runner
     mypkgs.swhkd # Hotkey daemon
+    keyd # Hotkey daemon
 
     microsoft-edge
     unstable.inkscape

@@ -215,6 +215,7 @@ in
 
   users.groups = {
     ydotool.members = [ "taham" ];
+    keyd.members = [ "taham" ];
   };
 
   # Allow unfree packages

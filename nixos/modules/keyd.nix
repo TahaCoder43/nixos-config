@@ -19,10 +19,15 @@
       # Base layer (default state)
       [ids]
 
-      *
+      1a2c:9df4
 
       [main]
 
+      3 = oneshot(keyfix-3)
+      e = oneshot(keyfix-e)
+      s = oneshot(keyfix-s)
+      x = oneshot(keyfix-x)
+      leftalt = oneshot(keyfix-leftalt)
       capslock = layer(nav)
 
       [nav]
@@ -31,11 +36,27 @@
       j = down
       k = up
       l = right
-      # Define a sequence: s → a opens kitty
-      # s = overload(sequence_layer, 2000)  # 2000ms timeout to press the next key
-      #
-      # [sequence_layer]
-      # a = `kitty`  # Open kitty when 'a' is pressed after 's'
+
+      [keyfix-3]
+
+      backspace = 3
+
+      [keyfix-e]
+
+      \ = e
+
+      [keyfix-s]
+
+      enter = s
+
+      [keyfix-x]
+
+      rightshift = x
+
+      [keyfix-leftalt]
+
+      rightctrl = leftalt
+
     '';
   };
 }

@@ -288,6 +288,7 @@ in
     unstable.python312Packages.notebook
     mypkgs.easy-arabic-keyboard-layout
     mypkgs.obsidian-appimage
+    steam-run
   ];
 
   programs.sway = {
@@ -338,6 +339,12 @@ in
   programs.firefox.enable = true;
   programs.ssh.startAgent = true;
   programs.ydotool.enable = true;
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+    localNetworkGameTransfers.openFirewall = true;
+  };
 
   # in your home.nix
   nixpkgs.config.allowUnfreePredicate =

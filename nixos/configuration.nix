@@ -260,6 +260,8 @@ in
     ripgrep # grep alternative
     fzf
     jq
+    p7zip
+    unrar
     tree
     appimage-run
     # remember to add zoxide

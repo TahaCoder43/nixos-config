@@ -59,16 +59,16 @@ let
         inherit pname version src;
         extraInstallCommands = ''
           ls $out/bin
-          ls ${appimageContents}
-          install -m 444 -D ${appimageContents}/obsidian.desktop $out/share/applications/obsidian.desktop
-          install -m 444 -D ${appimageContents}/usr/share/icons/hicolor/512x512/apps/obsidian.png \
-            $out/share/icons/hicolor/512x512/apps/obsidian.png
-          echo fails happens at substituting
-          ls $out/share/applications/
-          echo ${pname}
-          substituteInPlace $out/share/applications/obsidian.desktop \
-            --replace-fail 'Exec=AppRun' 'Exec=${pname}'
-          echo fail happens after extraInstallCommands
+                   ls ${appimageContents}
+                   install -m 444 -D ${appimageContents}/obsidian.desktop $out/share/applications/obsidian.desktop
+                   install -m 444 -D ${appimageContents}/usr/share/icons/hicolor/512x512/apps/obsidian.png \
+                     $out/share/icons/hicolor/512x512/apps/obsidian.png
+                   echo fails happens at substituting
+                   ls $out/share/applications/
+                   echo ${pname}
+                   substituteInPlace $out/share/applications/obsidian.desktop \
+                     --replace-fail 'Exec=AppRun' 'Exec=${pname}'
+                   echo fail happens after extraInstallCommands
         '';
       };
     more-rofi-themes = pkgs.stdenvNoCC.mkDerivation {
@@ -346,6 +346,7 @@ in
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
+    extraCompatPackages = [ pkgs.proton-ge-bin ];
   };
 
   # in your home.nix

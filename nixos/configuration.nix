@@ -284,6 +284,7 @@ in
     gimp
     filelight
     vlc
+    kdePackages.kamera
     sqlitebrowser
     unstable.activitywatch # for some reason stable version failed to build, meanwhile unstable succeded ????
     awatcher

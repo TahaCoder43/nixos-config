@@ -279,6 +279,7 @@ in
     ntfs3g # Required to be able to work with ntfs file system
     smartmontools # hard disk smart test runner
     mypkgs.swhkd # Hotkey daemon
+    steam-run
 
     microsoft-edge
     unstable.inkscape
@@ -286,13 +287,13 @@ in
     filelight
     vlc
     kdePackages.kamera
+    kdePackages.dolphin
     sqlitebrowser
     unstable.activitywatch # for some reason stable version failed to build, meanwhile unstable succeded ????
     awatcher
     unstable.python312Packages.notebook
     mypkgs.easy-arabic-keyboard-layout
     mypkgs.obsidian-appimage
-    steam-run
   ];
 
   programs.sway = {

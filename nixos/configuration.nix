@@ -239,6 +239,7 @@ in
     sqlite
     nil
     nixfmt-rfc-style
+    temurin-bin
 
     vim
     neovim

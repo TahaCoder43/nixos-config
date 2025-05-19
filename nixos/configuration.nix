@@ -226,6 +226,8 @@ in
 
   environment.systemPackages = with pkgs; [
     # install activity watch, keyviz, and flameshot now
+
+    # compilors, interpreters, linters, lsps, formatters
     python312
     pyright # python lsp
     ruff # python linter
@@ -242,6 +244,7 @@ in
     nixfmt-rfc-style
     temurin-bin
 
+    # TUIs
     vim
     neovim
     btop
@@ -249,6 +252,7 @@ in
     oh-my-posh
     # mypkgs.gauth
 
+    # Terminals, shells, multiplexers
     zsh
     antigen
     kitty
@@ -268,7 +272,7 @@ in
     appimage-run
     # remember to add zoxide
 
-    # utility tools
+    # Utility tools
     dig
     iftop
     iotop
@@ -282,6 +286,7 @@ in
     mypkgs.swhkd # Hotkey daemon
     steam-run
 
+    # GUIs, icon packs, layouts
     microsoft-edge
     unstable.inkscape
     gimp
@@ -297,6 +302,9 @@ in
     mypkgs.easy-arabic-keyboard-layout
     mypkgs.obsidian-appimage
     unstable.mcpelauncher-ui-qt
+
+    # Libraries, dependencies, drivers
+    libsForQt5.qt5.qtwayland
 
   ];
 

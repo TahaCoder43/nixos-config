@@ -227,6 +227,7 @@ in
   environment.systemPackages = with pkgs; [
     # install activity watch, keyviz, and flameshot now
     python312
+    pyright # python lsp
     ruff # python linter
     nodejs_23
     gcc

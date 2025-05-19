@@ -296,6 +296,8 @@ in
     unstable.python312Packages.notebook
     mypkgs.easy-arabic-keyboard-layout
     mypkgs.obsidian-appimage
+    unstable.mcpelauncher-ui-qt
+
   ];
 
   programs.sway = {

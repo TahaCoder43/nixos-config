@@ -46,5 +46,7 @@ in
     ln -sfn ${lineage_vanilla_waydroid_images}/system.img /etc/waydroid-extra/images/system.img
     ln -sfn ${lineage_vanilla_waydroid_images}/vendor.img /etc/waydroid-extra/images/vendor.img
   '';
+
+  environment.systemPackages = [ pkgs.nur.repos.ataraxiasjel.waydroid-script ];
   # environment.etc."waydroid-extra/images".source = "${lineage_vanilla_waydroid_image}";
 }

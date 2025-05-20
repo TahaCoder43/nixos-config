@@ -148,8 +148,8 @@ in
     ./hardware-configuration.nix
     (import ./modules/hyprland.nix { inherit pkgs mypkgs; })
     (import ./modules/xserver.nix { inherit config pkgs mypkgs; })
-    ./modules/networking.nix
     ./modules/waydroid.nix
+    ./modules/networking.nix
     ./modules/keyd.nix
   ];
 

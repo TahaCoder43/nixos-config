@@ -247,6 +247,7 @@ in
     # TUIs
     vim
     neovim
+    bvi
     btop
     gitui
     oh-my-posh
@@ -274,7 +275,7 @@ in
 
     # Utility tools
     dig
-    iftop
+    nethogs
     iotop
     libinput # to debug input events
     pciutils # provides lspci command to show usb device information

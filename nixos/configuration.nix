@@ -224,6 +224,10 @@ in
     "rofi/themes".source = "${pkgs.rofi-wayland}/share/rofi/themes";
   };
 
+  environment.variables = {
+    LD_LIBRARY_PATH = "${pkgs.zlib}/lib:${pkgs.stdenv.cc.cc.lib}/lib:${pkgs.libGL}/lib:${pkgs.glib.out}/lib:/run/opengl-driver/lib";
+  };
+
   environment.systemPackages = with pkgs; [
     # install activity watch, keyviz, and flameshot now
 

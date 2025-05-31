@@ -150,7 +150,7 @@ in
     (import ./modules/xserver.nix { inherit config pkgs mypkgs; })
     ./modules/waydroid.nix
     ./modules/networking.nix
-    ./modules/keyd.nix
+    # ./modules/keyd.nix
   ];
 
   # Bootloader.

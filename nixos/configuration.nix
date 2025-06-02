@@ -314,7 +314,7 @@ in
 
     # Libraries, dependencies, drivers
     libsForQt5.qt5.qtwayland
-    intel-ocl # Opencl runtime for intel
+    # intel-ocl # Opencl runtime for intel
 
   ];
 

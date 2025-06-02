@@ -275,6 +275,10 @@ in
     unrar
     tree
     appimage-run
+    apktool
+    # sdkmanager
+    # apksigner
+    # androidenv.androidPkgs.tools
     # remember to add zoxide
 
     # Utility tools

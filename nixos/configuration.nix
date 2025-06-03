@@ -294,6 +294,7 @@ in
     smartmontools # hard disk smart test runner
     mypkgs.swhkd # Hotkey daemon
     steam-run
+    inputs.nix-autobahn.packages.nix-autobahn
 
     # GUIs, icon packs, layouts
     microsoft-edge

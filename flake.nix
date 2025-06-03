@@ -10,6 +10,7 @@
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-autobahn.url = "github.com:Lassulus/nix-autobahn";
   };
   outputs =
     {

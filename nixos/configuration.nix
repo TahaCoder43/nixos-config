@@ -374,6 +374,8 @@ in
     extraCompatPackages = [ pkgs.proton-ge-bin ];
   };
 
+  programs.nix-ld.enable = true;
+
   # in your home.nix
   nixpkgs.config.allowUnfreePredicate =
     pkg:

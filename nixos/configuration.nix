@@ -294,7 +294,7 @@ in
     smartmontools # hard disk smart test runner
     mypkgs.swhkd # Hotkey daemon
     steam-run
-    inputs.nix-autobahn.packages.nix-autobahn
+    inputs.nix-autobahn.packages."${pkgs.system}".nix-autobahn
 
     # GUIs, icon packs, layouts
     microsoft-edge

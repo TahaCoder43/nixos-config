@@ -424,7 +424,7 @@ in
       users = [ "taham" ];
       commands = [
         {
-          command = "${pkgs.ydotool}/bin/ydotool";
+          command = "/run/current-system/sw/bin/ydotool";
           options = [ "NOPASSWD" ];
         }
       ];

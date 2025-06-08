@@ -207,6 +207,8 @@ in
     description = "Taha ibn Munawar";
     extraGroups = [
       "wheel"
+      "ydotool"
+      "uinput"
     ];
     shell = pkgs.zsh;
     packages = with pkgs; [

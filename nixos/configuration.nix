@@ -150,6 +150,7 @@ in
     (import ./modules/xserver.nix { inherit config pkgs mypkgs; })
     ./modules/waydroid.nix
     ./modules/networking.nix
+    # ./modules/android-build-tools.nix
     # ./modules/keyd.nix
   ];
 
@@ -276,6 +277,7 @@ in
     tree
     appimage-run
     apktool
+    # android-studio-tools
     # sdkmanager
     # apksigner
     # androidenv.androidPkgs.tools
@@ -417,6 +419,17 @@ in
   # services.displayManager.enable = true;
 
   # Sound
+  security.sudo.extraRules = [
+    {
+      users = [ "taham" ];
+      commands = [
+        {
+          command = "${pkgs.ydotool}/bin/ydotool";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true; # if not already enabled

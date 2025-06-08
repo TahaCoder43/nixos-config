@@ -1,23 +1,29 @@
+# This has been abodoned
+
 { pkgs, ... }:
 let
-  build-tools = pkgs.stdenvNoCC.mkDerivation rec {
+  build-tools = pkgs.stdenv.mkDerivation rec {
     pname = "build-tools";
     version = "34";
     platform = "linux";
 
-    src = pkgs.fetchZip {
+    src = pkgs.fetchzip {
       url = "https://dl.google.com/android/repository/${pname}_r${version}-${platform}.zip";
-      hash = "";
+      hash = "sha256-bB8kMwSFR8LebzPpz9eV8dVZlTBotjJhwTNnyQ/F06U=";
     };
 
-    nativeBuildInputs = [ pkgs.autoPatchElfHook ];
+    nativeBuildInputs = [ pkgs.autoPatchelfHook ];
+    buildInputs = [
+      pkgs.libgcc
+      pkgs.llvmPackages_19.libcxx
+    ];
 
     dontBuild = true;
 
     installPhase = ''
       runHook preInstall
-      cp -r $src/zipalign $out/
-      cp -r $src/apksigner $out/
+      install -Dm744 $src/zipalign -t $out/
+      install -Dm744 $src/apksigner -t $out/
       runHook postInstall
     '';
   };

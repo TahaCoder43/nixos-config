@@ -216,6 +216,7 @@ in
 
   users.groups = {
     ydotool.members = [ "taham" ];
+    uinput.members = [ "taham" ];
   };
 
   # Allow unfree packages
@@ -421,7 +422,7 @@ in
   # Sound
   security.sudo.extraRules = [
     {
-      users = [ "taham" ];
+      groups = [ "uinput" ];
       commands = [
         {
           command = "/run/current-system/sw/bin/ydotool";

@@ -371,7 +371,7 @@ in
   };
   programs.firefox.enable = true;
   programs.ssh.startAgent = true;
-  programs.ydotool.enable = true;
+  # programs.ydotool.enable = true;
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
@@ -424,7 +424,13 @@ in
   # Sound
   security.sudo.extraRules = [
     {
-      groups = [ "uinput" ];
+      users = [
+        "taham"
+      ];
+      groups = [
+        "uinput"
+        "users"
+      ];
       commands = [
         {
           command = "/run/current-system/sw/bin/ydotool";

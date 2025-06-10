@@ -156,13 +156,6 @@ in
 
   # Bootloader.
   # boot.loader.systemd-boot.enable = true;
-  boot.extraModprobeConfig = ''
-    options iwlwifi power_save=0
-  '';
-  boot.kernelParams = [
-    "pcie_aspm=off"
-    "pcie_port_pm=off"
-  ];
   boot.loader = {
     # efi = {
     #   canTouchEfiVariables = true;
@@ -229,6 +222,7 @@ in
   };
 
   environment.variables = {
+    YDOTOOL_SOCKET = "/home/taham/.ydotool_socket";
     LD_LIBRARY_PATH = "${pkgs.zlib}/lib:${pkgs.stdenv.cc.cc.lib}/lib:${pkgs.libGL}/lib:${pkgs.glib.out}/lib:/run/opengl-driver/lib";
   };
 
@@ -280,7 +274,7 @@ in
     tree
     appimage-run
     apktool
-    # android-studio-tools
+    android-studio-tools
     # sdkmanager
     # apksigner
     # androidenv.androidPkgs.tools
@@ -300,6 +294,7 @@ in
     mypkgs.swhkd # Hotkey daemon
     steam-run
     inputs.nix-autobahn.packages."${pkgs.system}".nix-autobahn
+    ydotool
 
     # GUIs, icon packs, layouts
     microsoft-edge
@@ -343,7 +338,6 @@ in
       flameshot
       slurp
       wf-recorder
-      ydotool
       wl-clipboard
       swaynotificationcenter
     ];
@@ -434,6 +428,10 @@ in
       commands = [
         {
           command = "/run/current-system/sw/bin/ydotool";
+          options = [ "NOPASSWD" ];
+        }
+        {
+          command = "/run/current-system/sw/bin/ydotoold";
           options = [ "NOPASSWD" ];
         }
       ];

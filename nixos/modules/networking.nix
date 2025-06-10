@@ -1,20 +1,30 @@
-{...}:
+{ ... }:
 {
-  networking = { 
+
+  boot.extraModprobeConfig = ''
+    options iwlwifi power_save=0
+  '';
+
+  boot.kernelParams = [
+    "pcie_aspm=off"
+    "pcie_port_pm=off"
+  ];
+
+  networking = {
     nameservers = [ "1.1.1.1" ]; # Set static dns to cloud flare
     hostName = "nixos";
     wireless.iwd = {
       enable = true;
       settings = {
         General = {
-          EnableNetworkConfiguration=true; # Use iwd built in dhcp client
-          AddressRandomization="disabled";
+          EnableNetworkConfiguration = true; # Use iwd built in dhcp client
+          AddressRandomization = "disabled";
         };
         Network = {
-          NameResolvingService="none"; # Prevent dynamic dns
+          NameResolvingService = "none"; # Prevent dynamic dns
         };
         DriverQuirks = {
-          PowerSaveDisable="iwlwifi"; # To solve weird disconnection issues
+          PowerSaveDisable = "iwlwifi"; # To solve weird disconnection issues
         };
         Blacklist = {
           InitialTimeout = 2;
@@ -26,7 +36,8 @@
     dhcpcd.enable = false;
     resolvconf.enable = false; # enabled by default and overrides network.nameservers with dynamic dns
     useDHCP = false;
-    interfaces.wlan0 = { # iwd uses wlan0 instead of wlp2s0
+    interfaces.wlan0 = {
+      # iwd uses wlan0 instead of wlp2s0
       useDHCP = true; # The recommended way is to enable dhcp like this
       ipv4.addresses = [
         {

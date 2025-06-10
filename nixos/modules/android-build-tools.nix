@@ -12,10 +12,18 @@ let
       hash = "sha256-bB8kMwSFR8LebzPpz9eV8dVZlTBotjJhwTNnyQ/F06U=";
     };
 
-    nativeBuildInputs = [ pkgs.autoPatchelfHook ];
+    nativeBuildInputs = [
+      pkgs.autoPatchelfHook
+      pkgs.pkg-config
+    ];
+
+    autoPatchelfIgnoreMissingDeps = [ "libc++.so" ];
+
     buildInputs = [
       pkgs.libgcc
-      pkgs.llvmPackages_19.libcxx
+      # pkgs.libcxx
+      pkgs.llvmPackages_19.libcxxClang
+      # pkgs.llvmPackages_19.clangUseLLVM
     ];
 
     dontBuild = true;

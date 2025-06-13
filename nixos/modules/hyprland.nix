@@ -1,4 +1,4 @@
-{pkgs, mypkgs, ...}:
+{ pkgs, ... }:
 {
   programs.hyprland.enable = true;
 
@@ -7,8 +7,6 @@
     hyprpaper
     waybar
     brightnessctl
-    rofimoji
-    mypkgs.more-rofi-themes
-# libsForQt5.qt5.qtwayland
+    # libsForQt5.qt5.qtwayland
   ];
 }

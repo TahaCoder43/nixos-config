@@ -21,135 +21,19 @@ let
         config.allowUnfree = true;
         system = "x86_64-linux";
       };
-  mypkgs = {
-    swhkd = pkgs.rustPlatform.buildRustPackage rec {
-      pname = "swhkd";
-      version = "1.2.1";
-      # nativeBuildInputs =
-      # buildInputs = with pkgs; [
-      #   cargo
-      # ];
-
-      src = pkgs.fetchFromGitHub {
-        owner = "waycrate";
-        repo = "swhkd";
-        tag = version;
-        hash = "sha256-VQW01j2RxhLUx59LAopZEdA7TyZBsJrF1Ym3LumvFqA=";
-      };
-
-      cargoHash = "sha256-NAVqwYJA0+X0dFC3PBaW+QJxvJtSgl4Y/VNfNO3jnLA=";
-
-    };
-    obsidian-appimage =
-      let
-        #https://github.com/obsidianmd/obsidian-releases/releases/download/v1.8.4/Obsidian-1.8.4.AppImage
-        version = "1.8.4";
-        pname = "Obsidian";
-
-        src = pkgs.fetchurl {
-          url = "https://github.com/obsidianmd/obsidian-releases/releases/download/v${version}/${pname}-${version}.AppImage";
-          hash = "sha256-f4waZvA/li0MmXVGj41qJZMZ7N31epa3jtvVoODmnKQ=";
-        };
-
-        appimageContents = pkgs.appimageTools.extract {
-          inherit pname version src;
-        };
-      in
-      pkgs.appimageTools.wrapType2 {
-        inherit pname version src;
-        extraInstallCommands = ''
-          ls $out/bin
-                   ls ${appimageContents}
-                   install -m 444 -D ${appimageContents}/obsidian.desktop $out/share/applications/obsidian.desktop
-                   install -m 444 -D ${appimageContents}/usr/share/icons/hicolor/512x512/apps/obsidian.png \
-                     $out/share/icons/hicolor/512x512/apps/obsidian.png
-                   echo fails happens at substituting
-                   ls $out/share/applications/
-                   echo ${pname}
-                   substituteInPlace $out/share/applications/obsidian.desktop \
-                     --replace-fail 'Exec=AppRun' 'Exec=${pname}'
-                   echo fail happens after extraInstallCommands
-        '';
-      };
-    more-rofi-themes = pkgs.stdenvNoCC.mkDerivation {
-      pname = "more-rofi-themes";
-      version = "1.0";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "adi1090x";
-        repo = "rofi";
-        rev = "2e0efe5054ac7eb502a585dd6b3575a65b80ce72";
-        hash = "sha256-TVZ7oTdgZ6d9JaGGa6kVkK7FMjNeuhVTPNj2d7zRWzM=";
-      };
-
-      dontBuild = true;
-
-      installPhase = ''
-        runHook preInstall
-        mkdir -p $out/share/rofi/
-        cp -r $src/files $out/share/rofi/themes
-        runHook postInstall
-      '';
-    };
-    easy-arabic-keyboard-layout = pkgs.stdenvNoCC.mkDerivation {
-      pname = "easy-arabic-keyboard-layout";
-      version = "1.0";
-
-      src = pkgs.fetchFromGitHub {
-        owner = "TahaCoder43";
-        repo = "easy-arabic-keyboard-layout";
-        rev = "a96ee639180041750298ff1c13e36c645ef09eea";
-        hash = "sha256-qQRH2bKALIHYExfLKLDNO9UEJXoAuDLZG8um50yqmBI=";
-      };
-
-      dontBuild = true;
-
-      installPhase = ''
-        runHook preInstall
-        install -Dm644 $src/* -t $out/share/X11/xkb/symbols/
-        runHook postInstall
-      '';
-    };
-    fonts = {
-      serenity-os-emoji = pkgs.stdenvNoCC.mkDerivation {
-        pname = "serenity-os-emoji";
-        version = "1.0";
-
-        src = pkgs.fetchurl {
-          url = "https://linusg.github.io/serenityos-emoji-font/SerenityOS-Emoji.ttf";
-          hash = "sha256-YvI9EEhEzw29ibcCh1H+bkVJtODHQQe88xsMU90wKVg=";
-        };
-
-        dontUnpack = true;
-
-        installPhase = ''
-          runHook preInstall
-          echo debugging
-          install -Dm644 $src -t $out/share/fonts/truetype
-          runHook postInstall
-        '';
-      };
-    };
-    tmux-plugin-manager = pkgs.tmuxPlugins.mkTmuxPlugin rec {
-      pluginName = "tpm";
-      version = "3.1.0";
-      src = pkgs.fetchFromGitHub {
-        owner = "tmux-plugins";
-        repo = "tpm";
-        tag = "v${version}";
-        hash = "sha256-CeI9Wq6tHqV68woE11lIY4cLoNY8XWyXyMHTDmFKJKI=";
-      };
-    };
-  };
 in
 {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    (import ./modules/hyprland.nix { inherit pkgs mypkgs; })
-    (import ./modules/xserver.nix { inherit config pkgs mypkgs; })
+    (import ./modules/keyboard-and-fonts.nix { inherit pkgs unstable; })
+    ./modules/hyprland.nix
     ./modules/waydroid.nix
     ./modules/networking.nix
+    ./modules/obsidian.nix
+    ./modules/swhkd.nix
+    ./modules/tmux.nix
+    ./modules/rofi.nix
     # ./modules/android-build-tools.nix
     # ./modules/keyd.nix
   ];
@@ -217,10 +101,6 @@ in
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  environment.etc = {
-    "rofi/themes".source = "${pkgs.rofi-wayland}/share/rofi/themes";
-  };
-
   environment.sessionVariables = {
     YDOTOOL_SOCKET = "/home/taham/.ydotool_socket";
     LD_LIBRARY_PATH = "${pkgs.zlib}/lib:${pkgs.stdenv.cc.cc.lib}/lib:${pkgs.libGL}/lib:${pkgs.glib.out}/lib:/run/opengl-driver/lib";
@@ -261,15 +141,12 @@ in
     btop
     gitui
     oh-my-posh
-    # mypkgs.gauth
 
     # Terminals, shells, multiplexers
     zsh
     antigen
     kitty
     foot
-    tmux
-    mypkgs.tmux-plugin-manager
 
     # Dev tools
     git
@@ -299,14 +176,12 @@ in
     file
     ntfs3g # Required to be able to work with ntfs file system
     smartmontools # hard disk smart test runner
-    mypkgs.swhkd # Hotkey daemon
     steam-run
     inputs.nix-autobahn.packages."${pkgs.system}".nix-autobahn
     ydotool
     wl-clipboard
 
     # GUIs, icon packs, layouts
-    rofi-wayland
     slurp
     (flameshot.override { enableWlrSupport = true; })
 
@@ -323,8 +198,6 @@ in
     unstable.activitywatch # for some reason stable version failed to build, meanwhile unstable succeded ????
     awatcher
     unstable.python312Packages.notebook
-    mypkgs.easy-arabic-keyboard-layout
-    mypkgs.obsidian-appimage
     unstable.mcpelauncher-ui-qt
     swaynotificationcenter
 
@@ -353,12 +226,6 @@ in
       name = "Taha ibn Munawar";
     };
   };
-  programs.tmux = {
-    enable = true;
-    extraConfig = ''
-      run ${mypkgs.tmux-plugin-manager}/share/tmux-plugins/tpm/tpm
-    '';
-  };
   programs.zsh = {
     enable = true;
     shellInit = ''
@@ -385,33 +252,6 @@ in
       "joypixels"
     ];
   nixpkgs.config.joypixels.acceptLicense = true;
-
-  fonts = {
-    packages = with pkgs; [
-      poppins
-      joypixels
-      unstable.nerd-fonts.iosevka
-      mypkgs.fonts.serenity-os-emoji
-      google-fonts # all google fonts downloaded, good for designing
-    ];
-    fontconfig.defaultFonts = {
-      monospace = [ "Iosevka Nerd Font" ];
-      sansSerif = [
-        "Noto Sans"
-        "Noto Kufi Arabic"
-      ];
-      serif = [
-        "Noto Serif"
-        "Noto Kufi Arabic"
-      ];
-      emoji = [
-        "JoyPixels"
-        "SerenityOS Emoji"
-        "Noto Color Emoji"
-        "Noto Emoji"
-      ];
-    };
-  };
 
   # Configure keymap in X11
   # Not working :'(
@@ -447,9 +287,6 @@ in
     pulse.enable = true;
   };
 
-  # hardware.pulseaudio.enable = true;
-  #hardware.pulseaudio.support32Bit = true;    ## If compatibility with 32-bit applications is desired.
-
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -457,17 +294,6 @@ in
   #   enable = true;
   #   enableSSHSupport = true;
   # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

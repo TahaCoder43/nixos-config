@@ -295,8 +295,14 @@ in
     steam-run
     inputs.nix-autobahn.packages."${pkgs.system}".nix-autobahn
     ydotool
+    wl-clipboard
 
     # GUIs, icon packs, layouts
+    rofi-wayland
+    slurp
+    (flameshot.override { enableWlrSupport = true; })
+
+    wf-recorder
     microsoft-edge
     unstable.inkscape
     gimp
@@ -312,6 +318,7 @@ in
     mypkgs.easy-arabic-keyboard-layout
     mypkgs.obsidian-appimage
     unstable.mcpelauncher-ui-qt
+    swaynotificationcenter
 
     # Libraries, dependencies, drivers
     libsForQt5.qt5.qtwayland
@@ -328,19 +335,6 @@ in
       export _JAVA_AWT_WM_NONREPARENTING=1
       export QT_QPA_PLATFORM=wayland
     '';
-    extraPackages = with pkgs; [
-      # might consider deleting these
-      dmenu
-      sway-contrib.grimshot
-
-      rofi-wayland
-      # manually install flameshot to include USE_WAYLAND_GRIM, like here https://github.com/NixOS/nixpkgs/issues/292700#issuecomment-1974953531
-      flameshot
-      slurp
-      wf-recorder
-      wl-clipboard
-      swaynotificationcenter
-    ];
   };
 
   programs.git.config = {

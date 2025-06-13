@@ -221,9 +221,17 @@ in
     "rofi/themes".source = "${pkgs.rofi-wayland}/share/rofi/themes";
   };
 
-  environment.variables = {
+  environment.sessionVariables = {
     YDOTOOL_SOCKET = "/home/taham/.ydotool_socket";
     LD_LIBRARY_PATH = "${pkgs.zlib}/lib:${pkgs.stdenv.cc.cc.lib}/lib:${pkgs.libGL}/lib:${pkgs.glib.out}/lib:/run/opengl-driver/lib";
+    GDK_BACKEND = "wayland,x11,*";
+    QT_QPA_PLATFORM = "wayland";
+    SDL_VIDEODRIVER = "wayland";
+    CLUTTER_BACKEND = "wayland";
+    XDG_SESSION_TYPE = "wayland";
+    XDG_CURRENT_DESKTOP = "Hyprland";
+    XDG_SESSION_DESKTOP = "Hyprland";
+    ZDOTDIR = "/home/taham/.config/zsh";
   };
 
   environment.systemPackages = with pkgs; [

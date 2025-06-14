@@ -106,6 +106,7 @@ in
     LD_LIBRARY_PATH = "${pkgs.zlib}/lib:${pkgs.stdenv.cc.cc.lib}/lib:${pkgs.libGL}/lib:${pkgs.glib.out}/lib:/run/opengl-driver/lib";
     GDK_BACKEND = "wayland,x11,*";
     QT_QPA_PLATFORM = "wayland";
+    QT_QPA_PLATFORMTHEME = "qt6ct";
     SDL_VIDEODRIVER = "wayland";
     CLUTTER_BACKEND = "wayland";
     XDG_SESSION_TYPE = "wayland";
@@ -203,20 +204,21 @@ in
 
     # Libraries, dependencies, drivers
     libsForQt5.qt5.qtwayland
+    kdePackages.qt6ct
     # intel-ocl # Opencl runtime for intel
 
   ];
 
-  programs.sway = {
-    enable = true;
-    #wrappersFeatures.gtk = true; if gtk fails turn this on
-    # figure out whether to use this or .zprofile
-    extraSessionCommands = ''
-      export SDL_VIDEODRIVER=wayland
-      export _JAVA_AWT_WM_NONREPARENTING=1
-      export QT_QPA_PLATFORM=wayland
-    '';
-  };
+  # programs.sway = {
+  #   enable = true;
+  #   #wrappersFeatures.gtk = true; if gtk fails turn this on
+  #   # figure out whether to use this or .zprofile
+  #   extraSessionCommands = ''
+  #     export SDL_VIDEODRIVER=wayland
+  #     export _JAVA_AWT_WM_NONREPARENTING=1
+  #     export QT_QPA_PLATFORM=wayland
+  #   '';
+  # };
 
   programs.git.config = {
     enable = true;

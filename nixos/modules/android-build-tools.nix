@@ -21,17 +21,25 @@ let
 
     buildInputs = [
       pkgs.libgcc
-      # pkgs.libcxx
-      pkgs.llvmPackages_19.libcxxClang
+      pkgs.libcxx
+      # pkgs.llvmPackages_19.libcxxClang
       # pkgs.llvmPackages_19.clangUseLLVM
     ];
 
     dontBuild = true;
 
+    preFixup = ''
+      find $out
+      # patchelf --replace-needed libc++.so libc++.so.1 $out/bin/zipalign
+      # patchelf --add-needed libc++abi.so.1 $out/bin/zipalign
+      # patchelf --replace-needed libc++.so libc++.so.1 $out/bin/apksigner
+      # patchelf --add-needed libc++abi.so.1 $out/bin/apksigner
+    '';
+
     installPhase = ''
       runHook preInstall
-      install -Dm744 $src/zipalign -t $out/
-      install -Dm744 $src/apksigner -t $out/
+      install -Dm744 $src/zipalign -t $out/bin/
+      install -Dm744 $src/apksigner -t $out/bin/
       runHook postInstall
     '';
   };

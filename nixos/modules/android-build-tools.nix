@@ -17,7 +17,7 @@ let
       pkgs.pkg-config
     ];
 
-    autoPatchelfIgnoreMissingDeps = [ "libc++.so" ];
+    # autoPatchelfIgnoreMissingDeps = [ "libc++.so" ];
 
     buildInputs = [
       pkgs.libgcc
@@ -29,11 +29,8 @@ let
     dontBuild = true;
 
     preFixup = ''
-      find $out
-      # patchelf --replace-needed libc++.so libc++.so.1 $out/bin/zipalign
-      # patchelf --add-needed libc++abi.so.1 $out/bin/zipalign
-      # patchelf --replace-needed libc++.so libc++.so.1 $out/bin/apksigner
-      # patchelf --add-needed libc++abi.so.1 $out/bin/apksigner
+      patchelf --replace-needed libc++.so libc++.so.1 $out/bin/zipalign
+      patchelf --add-needed libc++abi.so.1 $out/bin/zipalign
     '';
 
     installPhase = ''

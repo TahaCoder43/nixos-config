@@ -86,6 +86,7 @@ in
       "wheel"
       "ydotool"
       "uinput"
+      "input"
     ];
     shell = pkgs.zsh;
     packages = with pkgs; [

@@ -162,6 +162,7 @@ in
     appimage-run
     apktool
     android-studio-tools
+    ffmpeg_6
     # sdkmanager
     # apksigner
     # androidenv.androidPkgs.tools

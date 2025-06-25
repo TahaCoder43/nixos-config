@@ -207,6 +207,7 @@ in
     # Libraries, dependencies, drivers
     libsForQt5.qt5.qtwayland
     kdePackages.qt6ct
+    mesa
     # (unstable.libsForQt5.qtstyleplugin-kvantum.override { qtbase = kdePackages.qtbase; })
     # intel-ocl # Opencl runtime for intel
 

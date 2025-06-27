@@ -196,6 +196,7 @@ in
     vlc
     kdePackages.kamera
     kdePackages.dolphin
+    kdePackages.gwenview
     kdePackages.qtsvg
     sqlitebrowser
     unstable.activitywatch # for some reason stable version failed to build, meanwhile unstable succeded ????

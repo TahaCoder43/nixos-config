@@ -104,7 +104,6 @@ in
 
   environment.sessionVariables = {
     YDOTOOL_SOCKET = "/home/taham/.ydotool_socket";
-    LD_LIBRARY_PATH = "${pkgs.zlib}/lib:${pkgs.stdenv.cc.cc.lib}/lib:${pkgs.libGL}/lib:${pkgs.glib.out}/lib:/run/opengl-driver/lib";
     GDK_BACKEND = "wayland,x11,*";
     QT_QPA_PLATFORM = "wayland";
     QT_QPA_PLATFORMTHEME = "qt6ct";

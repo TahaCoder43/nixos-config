@@ -215,11 +215,11 @@ in
 
   # got from https://unix.stackexchange.com/questions/379632/how-to-set-the-default-browser-in-nixos
   xdg.mime.defaultApplications = {
-    "text/html" = "microsoft-edge";
-    "x-scheme-handler/http" = "microsoft-edge";
-    "x-scheme-handler/https" = "microsoft-edge";
-    "x-scheme-handler/about" = "microsoft-edge";
-    "x-scheme-handler/unknown" = "microsoft-edge";
+    "text/html" = "microsoft-edge.desktop";
+    "x-scheme-handler/http" = "microsoft-edge.desktop";
+    "x-scheme-handler/https" = "microsoft-edge.desktop";
+    "x-scheme-handler/about" = "microsoft-edge.desktop";
+    "x-scheme-handler/unknown" = "microsoft-edge.desktop";
   };
 
   programs.git.config = {

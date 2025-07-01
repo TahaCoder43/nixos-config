@@ -134,6 +134,7 @@ in
     nil
     nixfmt-rfc-style
     temurin-bin
+    gradle
 
     # TUIs
     vim

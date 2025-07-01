@@ -213,16 +213,14 @@ in
 
   ];
 
-  # programs.sway = {
-  #   enable = true;
-  #   #wrappersFeatures.gtk = true; if gtk fails turn this on
-  #   # figure out whether to use this or .zprofile
-  #   extraSessionCommands = ''
-  #     export SDL_VIDEODRIVER=wayland
-  #     export _JAVA_AWT_WM_NONREPARENTING=1
-  #     export QT_QPA_PLATFORM=wayland
-  #   '';
-  # };
+  # got from https://unix.stackexchange.com/questions/379632/how-to-set-the-default-browser-in-nixos
+  xdg.mime.defaultApplications = {
+    "text/html" = "microsoft-edge";
+    "x-scheme-handler/http" = "microsoft-edge";
+    "x-scheme-handler/https" = "microsoft-edge";
+    "x-scheme-handler/about" = "microsoft-edge";
+    "x-scheme-handler/unknown" = "microsoft-edge";
+  };
 
   programs.git.config = {
     enable = true;

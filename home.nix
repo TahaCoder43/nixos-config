@@ -1,4 +1,4 @@
-{ config,  pkgs, ... }:
+{ config, pkgs, ... }:
 
 rec {
   # TODO please change the username & home directory to your own
@@ -24,13 +24,12 @@ rec {
   home.packages = with pkgs; [
   ];
 
-
   # basic configuration of git, please change to your own
   programs.git = {
     enable = true;
     extraConfig = {
       user.name = "Taha ibn Munawar";
-      user.email =  "taha-ibn-munawar@proton.me";
+      user.email = "taha-ibn-munawar@proton.me";
       init.defaultBranch = "main";
     };
   };
@@ -83,6 +82,14 @@ rec {
         abort_merge: Some(( code: Char('M'), modifiers: "SHIFT")),
       )
     '';
+  };
+
+  xdg.desktopEntries = {
+    minecraft-java = {
+      name = "Minecraft Java";
+      genericName = "Game";
+      exec = "steam-run java -jar ${home.homeDirectory}/Downloads/SKlauncher-3.2.12.jar";
+    };
   };
 
   # This value determines the home Manager release that your

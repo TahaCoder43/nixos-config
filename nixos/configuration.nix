@@ -202,6 +202,7 @@ in
     unstable.activitywatch # for some reason stable version failed to build, meanwhile unstable succeded ????
     awatcher
     unstable.python312Packages.notebook
+    # android-studio
     unstable.mcpelauncher-ui-qt
     swaynotificationcenter
 

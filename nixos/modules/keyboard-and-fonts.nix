@@ -54,6 +54,7 @@ in
   };
 
   fonts = {
+    fontDir.enable = true;
     packages = with pkgs; [
       poppins
       joypixels

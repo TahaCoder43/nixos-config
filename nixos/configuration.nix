@@ -202,7 +202,7 @@ in
     unstable.activitywatch # for some reason stable version failed to build, meanwhile unstable succeded ????
     awatcher
     unstable.python312Packages.notebook
-    # android-studio
+    android-studio
     unstable.mcpelauncher-ui-qt
     swaynotificationcenter
 
@@ -281,6 +281,9 @@ in
         {
           command = "/run/current-system/sw/bin/ydotoold";
           options = [ "NOPASSWD" ];
+        }
+        {
+          command = "/run/current-system/sw/bin/nethogs";
         }
       ];
     }

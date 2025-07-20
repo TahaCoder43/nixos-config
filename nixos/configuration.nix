@@ -137,6 +137,7 @@ in
     sqlite
     svelte-language-server
     temurin-bin
+    typescript-language-server
 
     # TUIs
     btop

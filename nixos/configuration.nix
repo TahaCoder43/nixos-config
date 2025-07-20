@@ -34,7 +34,7 @@ in
     ./modules/swhkd.nix
     ./modules/tmux.nix
     ./modules/rofi.nix
-    ./modules/android-build-tools.nix
+    # ./modules/android-dev.nix
     # ./modules/keyd.nix
   ];
 
@@ -119,50 +119,52 @@ in
     # install activity watch, keyviz, and flameshot now
 
     # compilors, interpreters, linters, lsps, formatters
-    python312
-    pyright # python lsp
-    ruff # python linter
-    nodejs_23
+    astro-language-server
+    cargo
     gcc
     gnumake
-    rustc
-    cargo
-    rustfmt
-    rust-analyzer
+    gradle
     lldb
-    sqlite
     nil
     nixfmt-rfc-style
+    nodejs_23
+    pyright # python lsp
+    python312
+    ruff # python linter
+    rustc
+    rustfmt
+    rust-analyzer
+    sqlite
+    svelte-language-server
     temurin-bin
-    gradle
 
     # TUIs
-    vim
-    neovim
-    bvi
     btop
+    bvi
     gitui
+    neovim
     oh-my-posh
+    vim
 
     # Terminals, shells, multiplexers
-    zsh
     antigen
-    kitty
     foot
+    kitty
+    zsh
 
     # Dev tools
-    git
-    wget
-    ripgrep # grep alternative
+    android-studio-tools
+    apktool
+    appimage-run
+    ffmpeg_6-full
     fzf
+    git
     jq
     p7zip
-    unrar
+    ripgrep # grep alternative
     tree
-    appimage-run
-    apktool
-    android-studio-tools
-    ffmpeg_6-full
+    unrar
+    wget
     # sdkmanager
     # apksigner
     # androidenv.androidPkgs.tools
@@ -170,45 +172,44 @@ in
 
     # Utility tools
     dig
-    nethogs
-    iotop
-    libinput # to debug input events
-    pciutils # provides lspci command to show usb device information
-    lshw
     exiftool
     file
+    inputs.nix-autobahn.packages."${pkgs.system}".nix-autobahn
+    iotop
+    libinput # to debug input events
+    lshw
+    nethogs
     ntfs3g # Required to be able to work with ntfs file system
+    pciutils # provides lspci command to show usb device information
     smartmontools # hard disk smart test runner
     steam-run
-    inputs.nix-autobahn.packages."${pkgs.system}".nix-autobahn
-    ydotool
     wl-clipboard
+    ydotool
 
     # GUIs, icon packs, layouts
-    slurp
+    android-studio
+    awatcher
     (flameshot.override { enableWlrSupport = true; })
-
-    wf-recorder
-    microsoft-edge
-    unstable.inkscape
-    gimp
     filelight
-    vlc
-    kdePackages.kamera
+    gimp
     kdePackages.dolphin
     kdePackages.gwenview
+    kdePackages.kamera
     kdePackages.qtsvg
+    microsoft-edge
     sqlitebrowser
-    unstable.activitywatch # for some reason stable version failed to build, meanwhile unstable succeded ????
-    awatcher
-    unstable.python312Packages.notebook
-    android-studio
-    unstable.mcpelauncher-ui-qt
     swaynotificationcenter
+    slurp
+    unstable.activitywatch # for some reason stable version failed to build, meanwhile unstable succeded ????
+    unstable.python312Packages.notebook
+    unstable.mcpelauncher-ui-qt
+    unstable.inkscape
+    vlc
+    wf-recorder
 
     # Libraries, dependencies, drivers
-    libsForQt5.qt5.qtwayland
     kdePackages.qt6ct
+    libsForQt5.qt5.qtwayland
     mesa
     # (unstable.libsForQt5.qtstyleplugin-kvantum.override { qtbase = kdePackages.qtbase; })
     # intel-ocl # Opencl runtime for intel

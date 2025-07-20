@@ -138,6 +138,7 @@ in
     svelte-language-server
     temurin-bin
     typescript-language-server
+    vscode-langservers-extracted
 
     # TUIs
     btop

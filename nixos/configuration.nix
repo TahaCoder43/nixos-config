@@ -148,7 +148,6 @@ in
     neovim
     oh-my-posh
     vim
-    protonvpn-cli
 
     # Terminals, shells, multiplexers
     antigen
@@ -202,6 +201,7 @@ in
     kdePackages.qtsvg
     kdePackages.filelight
     microsoft-edge
+    protonvpn-gui
     sqlitebrowser
     swaynotificationcenter
     slurp

@@ -141,13 +141,14 @@ in
     typescript-language-server
     vscode-langservers-extracted
 
-    # TUIs
+    # TUIs, CLIs
     btop
     bvi
     gitui
     neovim
     oh-my-posh
     vim
+    protonvpn-cli
 
     # Terminals, shells, multiplexers
     antigen

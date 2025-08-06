@@ -31,9 +31,10 @@ in
     ./modules/waydroid.nix
     ./modules/networking.nix
     ./modules/obsidian.nix
-    ./modules/swhkd.nix
     ./modules/tmux.nix
     ./modules/rofi.nix
+    ./modules/firewall.nix
+    # ./modules/swhkd.nix
     # ./modules/android-dev.nix
     # ./modules/keyd.nix
   ];
@@ -127,7 +128,7 @@ in
     lldb
     nil
     nixfmt-rfc-style
-    nodejs_23
+    nodejs_24
     pyright # python lsp
     python312
     ruff # python linter
@@ -185,6 +186,7 @@ in
     pciutils # provides lspci command to show usb device information
     smartmontools # hard disk smart test runner
     steam-run
+    wlr-randr
     wl-clipboard
     ydotool
 
@@ -192,12 +194,12 @@ in
     android-studio
     awatcher
     (flameshot.override { enableWlrSupport = true; })
-    filelight
     gimp
     kdePackages.dolphin
     kdePackages.gwenview
     kdePackages.kamera
     kdePackages.qtsvg
+    kdePackages.filelight
     microsoft-edge
     sqlitebrowser
     swaynotificationcenter
@@ -207,6 +209,7 @@ in
     unstable.mcpelauncher-ui-qt
     unstable.inkscape
     vlc
+    webfontkitgenerator
     wf-recorder
 
     # Libraries, dependencies, drivers
@@ -253,6 +256,8 @@ in
   };
 
   programs.nix-ld.enable = true;
+
+  programs.gnupg.agent.enable = true;
 
   # in your home.nix
   nixpkgs.config.allowUnfreePredicate =

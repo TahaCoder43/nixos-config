@@ -34,6 +34,7 @@ in
     ./modules/tmux.nix
     ./modules/rofi.nix
     ./modules/firewall.nix
+    # ./modules/mdn-cli.nix
     # ./modules/swhkd.nix
     # ./modules/android-dev.nix
     # ./modules/keyd.nix
@@ -189,6 +190,7 @@ in
     wlr-randr
     wl-clipboard
     ydotool
+    libnotify
 
     # GUIs, icon packs, layouts
     android-studio

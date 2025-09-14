@@ -214,6 +214,9 @@ in
     vlc
     webfontkitgenerator
     wf-recorder
+    wl-color-picker
+    eyedropper
+    obs-studio
 
     # Libraries, dependencies, drivers
     kdePackages.qt6ct

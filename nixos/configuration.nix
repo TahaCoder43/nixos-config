@@ -201,6 +201,7 @@ in
     kdePackages.kamera
     kdePackages.qtsvg
     kdePackages.filelight
+    kdePackages.kdenlive
     microsoft-edge
     protonvpn-gui
     sqlitebrowser

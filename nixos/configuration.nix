@@ -195,7 +195,6 @@ in
     # GUIs, icon packs, layouts
     android-studio
     awatcher
-    (flameshot.override { enableWlrSupport = true; })
     gimp
     kdePackages.dolphin
     kdePackages.gwenview
@@ -309,6 +308,9 @@ in
     alsa.support32Bit = true;
     pulse.enable = true;
   };
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
+  services.desktopManager.plasma6.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

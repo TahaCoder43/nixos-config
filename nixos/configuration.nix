@@ -192,6 +192,7 @@ in
     ydotool
     libnotify
     openvpn
+    wireguard-tools
 
     # GUIs, icon packs, layouts
     android-studio
@@ -310,6 +311,12 @@ in
     alsa.support32Bit = true;
     pulse.enable = true;
   };
+
+  # services.openvpn.servers = {
+  #   homeVPN = {
+  #     config = ''config /home/taham/Downloads/us-free-86.protonvpn.udp.ovpn'';
+  #   };
+  # };
   # services.displayManager.sddm.enable = true;
   # services.displayManager.sddm.wayland.enable = true;
   # services.desktopManager.plasma6.enable = true;

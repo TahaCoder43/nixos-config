@@ -206,6 +206,7 @@ in
     kdePackages.kdenlive
     microsoft-edge
     protonvpn-gui
+    ivpn
     sqlitebrowser
     swaynotificationcenter
     slurp

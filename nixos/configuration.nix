@@ -165,6 +165,7 @@ in
     fzf
     git
     jq
+    mailutils
     p7zip
     ripgrep # grep alternative
     tree

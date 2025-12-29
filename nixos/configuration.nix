@@ -34,6 +34,7 @@ in
     ./modules/tmux.nix
     ./modules/rofi.nix
     ./modules/firewall.nix
+    ./modules/postfix.nix
     # ./modules/mdn-cli.nix
     # ./modules/swhkd.nix
     # ./modules/android-dev.nix
@@ -206,7 +207,6 @@ in
     kdePackages.kdenlive
     microsoft-edge
     protonvpn-gui
-    ivpn
     sqlitebrowser
     swaynotificationcenter
     slurp

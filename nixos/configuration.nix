@@ -221,6 +221,7 @@ in
     wl-color-picker
     eyedropper
     obs-studio
+    gammastep
 
     # Libraries, dependencies, drivers
     kdePackages.qt6ct

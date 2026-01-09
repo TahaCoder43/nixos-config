@@ -88,7 +88,7 @@ rec {
     minecraft-java = {
       name = "Minecraft Java";
       genericName = "Game";
-      exec = "steam-run java -jar ${home.homeDirectory}/Downloads/SKlauncher-3.2.12.jar";
+      exec = "steam-run java -jar ${home.homeDirectory}/Downloads/SKlauncher-3.2.18.jar";
     };
   };
 

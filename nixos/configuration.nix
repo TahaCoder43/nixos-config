@@ -166,6 +166,7 @@ in
     git
     jq
     mailutils
+    ollama
     p7zip
     ripgrep # grep alternative
     tree

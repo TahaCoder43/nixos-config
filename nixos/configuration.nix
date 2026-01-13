@@ -6,6 +6,7 @@
   pkgs,
   lib,
   inputs,
+  pkgs-unstable,
   ...
 }:
 
@@ -62,6 +63,10 @@ in
     "nix-command"
     "flakes"
   ];
+
+  # nix.extraOptions = ''
+  #   access-tokens = github.com=${builtins.readFile "./.github_access"}
+  # '';
 
   # Set your time zone.
   time.timeZone = "Asia/Karachi";
@@ -166,7 +171,7 @@ in
     git
     jq
     mailutils
-    ollama
+    pkgs-unstable.ollama
     p7zip
     ripgrep # grep alternative
     tree

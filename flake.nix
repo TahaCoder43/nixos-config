@@ -2,6 +2,7 @@
   description = "My nixos configuration";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -18,12 +19,19 @@
       nixpkgs,
       nur,
       home-manager,
+      unstable,
       ...
     }@inputs:
     {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
+        specialArgs = {
+          inherit inputs;
+          pkgs-unstable = import unstable {
+            inherit system;
+            config.allowUnfree = true;
+          };
+        };
         modules = [
           nur.modules.nixos.default
           ./nixos/configuration.nix

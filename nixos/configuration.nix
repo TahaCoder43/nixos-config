@@ -228,6 +228,7 @@ in
     eyedropper
     obs-studio
     gammastep
+    pkgs-unstable.jetbrains.idea
 
     # Libraries, dependencies, drivers
     kdePackages.qt6ct

@@ -218,7 +218,7 @@ in
     swaynotificationcenter
     slurp
     unstable.activitywatch # for some reason stable version failed to build, meanwhile unstable succeded ????
-    python313Packages.jupyter
+    pkgs-unstable.python314Packages.notebook
     unstable.mcpelauncher-ui-qt
     unstable.inkscape
     vlc

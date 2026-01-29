@@ -219,6 +219,7 @@ in
     slurp
     unstable.activitywatch # for some reason stable version failed to build, meanwhile unstable succeded ????
     pkgs-unstable.python314Packages.jupyterlab
+    pkgs-unstable.python314Packages.jupyterlab-vim
     unstable.mcpelauncher-ui-qt
     unstable.inkscape
     vlc

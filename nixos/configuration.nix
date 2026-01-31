@@ -213,13 +213,22 @@ in
     kdePackages.filelight
     kdePackages.kdenlive
     microsoft-edge
+    (pkgs-unstable.n8n.overrideAttrs (oldAttrs: {
+      preBuild = (oldAttrs.preBuild or "") + ''
+        export NODE_OPTIONS="--max-old-space-size=8192"
+      '';
+    }))
     protonvpn-gui
     sqlitebrowser
     swaynotificationcenter
     slurp
     unstable.activitywatch # for some reason stable version failed to build, meanwhile unstable succeded ????
-    pkgs-unstable.python314Packages.jupyterlab
-    pkgs-unstable.python314Packages.jupyterlab-vim
+    (pkgs-unstable.python3.withPackages (
+      ps: with ps; [
+        jupyterlab
+        jupyterlab-vim
+      ]
+    ))
     unstable.mcpelauncher-ui-qt
     unstable.inkscape
     vlc

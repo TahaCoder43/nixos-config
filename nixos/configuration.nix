@@ -172,6 +172,7 @@ in
     jq
     mailutils
     pkgs-unstable.ollama
+    pkgs-unstable.python313Packages.paddlepaddle
     p7zip
     ripgrep # grep alternative
     tree

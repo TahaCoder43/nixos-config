@@ -179,11 +179,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770652687,
-        "narHash": "sha256-wWd3YQKEBEmCrtWD6Ph2UKP8d0CypW3y7eR7BNI7WMw=",
+        "lastModified": 1770655643,
+        "narHash": "sha256-E2zBedYUzdqeokstDYr3InaNrBP6Mx64EQjAbYoPIOs=",
         "owner": "TahaCoder43",
         "repo": "TranslateArabicOnScreen",
-        "rev": "0fdc3db062e3a257faf705c827a3569dc5c0a644",
+        "rev": "c85fff04f03babfbf97a5eddfc121d7d0519b496",
         "type": "github"
       },
       "original": {

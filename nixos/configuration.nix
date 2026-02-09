@@ -172,7 +172,7 @@ in
     jq
     mailutils
     pkgs-unstable.ollama
-    pkgs-unstable.python313Packages.paddlepaddle
+    # pkgs-unstable.python313Packages.paddleocr
     p7zip
     ripgrep # grep alternative
     tree
@@ -245,6 +245,7 @@ in
     kdePackages.qt6ct
     libsForQt5.qt5.qtwayland
     mesa
+    inputs.translate-onscreen-arabic.packages."${pkgs.system}".default
     # (unstable.libsForQt5.qtstyleplugin-kvantum.override { qtbase = kdePackages.qtbase; })
     # intel-ocl # Opencl runtime for intel
 

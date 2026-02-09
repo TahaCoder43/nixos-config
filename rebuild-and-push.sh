@@ -4,7 +4,7 @@ commit_message=${1:-'Updating configuration.nix (likely)'}
 
 git add .
 
-if git status -s | grep -E "\.nix$"; then # also acounts for hardwaree-configuration.nix remember
+if git status -s | grep -E "(\.nix|flake\.lock)$"; then # also acounts for hardwaree-configuration.nix remember
     sudo nixos-rebuild switch --option access-tokens "github.com=$(cat .github_access)"
 fi
 

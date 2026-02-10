@@ -36,6 +36,7 @@ in
     ./modules/rofi.nix
     ./modules/firewall.nix
     ./modules/postfix.nix
+    ./modules/n8n.nix
     # ./modules/mdn-cli.nix
     # ./modules/swhkd.nix
     # ./modules/android-dev.nix
@@ -214,11 +215,6 @@ in
     kdePackages.filelight
     kdePackages.kdenlive
     microsoft-edge
-    (pkgs-unstable.n8n.overrideAttrs (oldAttrs: {
-      preBuild = (oldAttrs.preBuild or "") + ''
-        export NODE_OPTIONS="--max-old-space-size=8192"
-      '';
-    }))
     protonvpn-gui
     sqlitebrowser
     swaynotificationcenter

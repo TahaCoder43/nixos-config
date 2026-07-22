@@ -16,7 +16,7 @@
       settings = {
         main = {
           wakeup = "overload(control, wakeup)";
-          rightcontrol = "iso";
+          rightcontrol = "macro(rightcontrol toggle(rctrl_layer))";
           rightshift = "rightshift";
           capslock = "overload(capslock_layer, esc)";
           "S-capslock" = "toggle(nav-toggled)";
@@ -25,6 +25,10 @@
         control = {
           d = "C-d";
           s = "C-s";
+        };
+
+        rctrl_layer = {
+          capslock = "iso-level3-shift";
         };
 
         "nav-toggled" = {

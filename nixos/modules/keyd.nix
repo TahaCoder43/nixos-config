@@ -17,6 +17,20 @@
         main = {
           fn = "control";
           capslock = "overload(capslock_layer, esc)";
+          "S-capslock" = "toggle(nav-toggled)";
+
+        };
+        "nav-toggled" = {
+          w = "up";
+          a = "left";
+          s = "down";
+          d = "right";
+
+          # Pressing Shift + Caps Lock again turns it off
+          "S-capslock" = "toggle(nav)";
+
+          # Pressing Escape clears all active layers (returns to normal typing)
+          esc = "clearm()";
         };
         capslock_layer = {
           # Movement

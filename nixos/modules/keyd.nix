@@ -15,7 +15,7 @@
       ids = [ "*" ];
       settings = {
         main = {
-          fn = "leftcontrol";
+          wakeup = "leftcontrol";
           capslock = "overload(capslock_layer, esc)";
           "S-capslock" = "toggle(nav-toggled)";
         };

@@ -15,11 +15,10 @@
       ids = [ "*" ];
       settings = {
         main = {
-          wakeup = "overload(control, wakeup)";
           rightcontrol = "togglem(rctrl_layer, rightcontrol)";
           rightshift = "rightshift";
-          capslock = "overload(capslock_layer, esc)";
-          "S-capslock" = "toggle(nav-toggled)";
+          capslock = "overload(control, esc)";
+          S-capslock = "toggle(nav_toggled)";
         };
 
         control = {
@@ -31,14 +30,14 @@
           capslock = "iso-level3-shift";
         };
 
-        "nav-toggled" = {
+        nav_toggled = {
           w = "up";
           a = "left";
           s = "down";
           d = "right";
 
           # Pressing Shift + Caps Lock again turns it off
-          "S-capslock" = "toggle(nav-toggled)";
+          "S-capslock" = "toggle(nav_toggled)";
 
           # Pressing Escape clears all active layers (returns to normal typing)
           esc = "clear()";

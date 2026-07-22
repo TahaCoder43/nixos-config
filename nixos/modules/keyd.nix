@@ -16,7 +16,7 @@
       settings = {
         main = {
           wakeup = "overload(control, wakeup)";
-          rightcontrol = "macro(rightcontrol toggle(rctrl_layer))";
+          rightcontrol = "togglem(rctrl_layer, rightcontrol)";
           rightshift = "rightshift";
           capslock = "overload(capslock_layer, esc)";
           "S-capslock" = "toggle(nav-toggled)";

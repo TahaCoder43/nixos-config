@@ -17,8 +17,14 @@
         main = {
           wakeup = "overload(control, wakeup)";
           rightcontrol = "rightcontrol";
+          rightshift = "rightshift";
           capslock = "overload(capslock_layer, esc)";
           "S-capslock" = "toggle(nav-toggled)";
+        };
+
+        control = {
+          d = "C-d";
+          s = "C-s";
         };
 
         "nav-toggled" = {

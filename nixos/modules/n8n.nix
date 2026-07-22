@@ -44,7 +44,18 @@ in
       preBuild = (oldAttrs.preBuild or "") + ''
         export NODE_OPTIONS="--max-old-space-size=8192"
       '';
+      nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [ pkgs.makeWrapper ];
+      postInstall = ''
+        ${oldAttrs.postInstall or ""}
+        wrapProgram $out/bin/n8n \
+          --set N8N_NATIVE_PYTHON_RUNNER true \
+          --set N8N_RUNNERS_ENABLED true \
+          --set N8N_RUNNERS_MODE external \
+          --set N8N_RUNNERS_BROKER_LISTEN_ADDRESS 0.0.0.0 \
+          --set N8N_RUNNERS_AUTH_TOKEN "myauthtoken" \
+          --set NODES_EXCLUDE "[]"
+      '';
     }))
-    n8n-node-convert-image
+    # n8n-node-convert-image
   ];
 }

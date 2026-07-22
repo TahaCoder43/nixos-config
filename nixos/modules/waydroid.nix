@@ -1,6 +1,6 @@
 # Also check out blissOS
 
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   mirror = "onboardcloud";
   page = "https://sourceforge.net/projects/waydroid/files/images";
@@ -39,14 +39,18 @@ let
   };
 in
 {
+  # Disable Waydroid from starting automatically at system boot
+  systemd.services.waydroid-container.wantedBy = lib.mkForce [ ];
   virtualisation.waydroid.enable = true;
-  # environment.systemPackages = [ lineage_vanilla_waydroid_image ];
-  # system.activationScripts.waydroidImage.text = ''
-  #   mkdir -p /etc/waydroid-extra/images
-  #   ln -sfn ${lineage_vanilla_waydroid_images}/system.img /etc/waydroid-extra/images/system.img
-  #   ln -sfn ${lineage_vanilla_waydroid_images}/vendor.img /etc/waydroid-extra/images/vendor.img
-  # '';
+  environment.systemPackages = [
+    lineage_vanilla_waydroid_images
+    pkgs.nur.repos.ataraxiasjel.waydroid-script
+  ];
+  system.activationScripts.waydroidImage.text = ''
+    mkdir -p /etc/waydroid-extra/images
+    ln -sfn ${lineage_vanilla_waydroid_images}/system.img /etc/waydroid-extra/images/system.img
+    ln -sfn ${lineage_vanilla_waydroid_images}/vendor.img /etc/waydroid-extra/images/vendor.img
+  '';
 
-  environment.systemPackages = [ pkgs.nur.repos.ataraxiasjel.waydroid-script ];
-  # environment.etc."waydroid-extra/images".source = "${lineage_vanilla_waydroid_image}";
+  environment.etc."waydroid-extra/images".source = "${lineage_vanilla_waydroid_images}";
 }

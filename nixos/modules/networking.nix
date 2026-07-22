@@ -41,7 +41,7 @@
       useDHCP = true; # The recommended way is to enable dhcp like this
       ipv4.addresses = [
         {
-          address = "192.168.43.233";
+          address = "192.168.137.233";
           prefixLength = 24;
         }
       ];

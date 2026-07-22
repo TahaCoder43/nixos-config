@@ -29,26 +29,29 @@ in
     ./hardware-configuration.nix
     (import ./modules/keyboard-and-fonts.nix { inherit pkgs unstable; })
     ./modules/hyprland.nix
-    ./modules/waydroid.nix
+    (import ./modules/waydroid.nix { inherit pkgs lib; })
     ./modules/networking.nix
     ./modules/obsidian.nix
     ./modules/tmux.nix
     ./modules/rofi.nix
     ./modules/firewall.nix
-    ./modules/postfix.nix
+    ./modules/flatpak.nix
     ./modules/n8n.nix
+    ./modules/flameshot.nix
+    ./modules/keyd.nix
+    # ./modules/udev.nix
+    ./modules/sudo-rules.nix
+    # ./modules/postfix.nix
+    # ./modules/cage-xtmapper.nix
     # ./modules/mdn-cli.nix
     # ./modules/swhkd.nix
     # ./modules/android-dev.nix
-    # ./modules/keyd.nix
   ];
 
   # Bootloader.
   # boot.loader.systemd-boot.enable = true;
   boot.loader = {
-    # efi = {
-    #   canTouchEfiVariables = true;
-    # };
+    # efi = { canTouchEfiVariables = true; };
     grub = {
       enable = true;
       efiSupport = true;
@@ -56,6 +59,24 @@ in
       efiInstallAsRemovable = true; # So grub can remove /boot/EFI/BOOT/BOOTX64.EFI, reference: https://discourse.nixos.org/t/change-bootloader-to-grub/49947/2
     };
   };
+
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+
+  hardware.opengl = {
+    enable = true;
+    # driSupport = true;
+    driSupport32Bit = true;
+    extraPackages = with pkgs; [
+      vulkan-loader
+      vulkan-validation-layers
+      vulkan-extension-layer
+    ];
+  };
+
+  hardware.bluetooth.enable = true;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -125,7 +146,6 @@ in
   };
 
   environment.systemPackages = with pkgs; [
-    # install activity watch, keyviz, and flameshot now
 
     # compilors, interpreters, linters, lsps, formatters
     astro-language-server
@@ -156,6 +176,7 @@ in
     neovim
     oh-my-posh
     vim
+    bluez
 
     # Terminals, shells, multiplexers
     antigen
@@ -164,7 +185,6 @@ in
     zsh
 
     # Dev tools
-    android-studio-tools
     apktool
     appimage-run
     ffmpeg_6-full
@@ -174,10 +194,8 @@ in
     mailutils
     pkgs-unstable.ollama
     # pkgs-unstable.python313Packages.paddleocr
-    p7zip
     ripgrep # grep alternative
     tree
-    unrar
     wget
     # sdkmanager
     # apksigner
@@ -185,6 +203,7 @@ in
     # remember to add zoxide
 
     # Utility tools
+    aria2
     dig
     exiftool
     file
@@ -192,20 +211,24 @@ in
     iotop
     libinput # to debug input events
     lshw
+    usbutils
+    libnotify
+    openvpn
     nethogs
     ntfs3g # Required to be able to work with ntfs file system
+    p7zip
     pciutils # provides lspci command to show usb device information
     smartmontools # hard disk smart test runner
     steam-run
-    wlr-randr
-    wl-clipboard
-    ydotool
-    libnotify
-    openvpn
+    unrar
+    wev # debug input events for wayland
     wireguard-tools
+    wl-clipboard
+    wlr-randr
+    ydotool
+    yt-dlp
 
     # GUIs, icon packs, layouts
-    android-studio
     awatcher
     gimp
     kdePackages.dolphin
@@ -213,20 +236,19 @@ in
     kdePackages.kamera
     kdePackages.qtsvg
     kdePackages.filelight
-    kdePackages.kdenlive
+    # kdePackages.kdenlive
     microsoft-edge
-    protonvpn-gui
+    # protonvpn-gui
     sqlitebrowser
     swaynotificationcenter
     slurp
-    unstable.activitywatch # for some reason stable version failed to build, meanwhile unstable succeded ????
+    # unstable.activitywatch # for some reason stable version failed to build, meanwhile unstable succeded ????
     (pkgs-unstable.python3.withPackages (
       ps: with ps; [
         jupyterlab
         jupyterlab-vim
       ]
     ))
-    unstable.mcpelauncher-ui-qt
     unstable.inkscape
     vlc
     webfontkitgenerator
@@ -235,7 +257,12 @@ in
     eyedropper
     obs-studio
     gammastep
-    pkgs-unstable.jetbrains.idea
+    fragments
+    qbittorrent
+    motrix
+    gnome-clocks
+    # pkgs-unstable.alterware-launcher
+    # pkgs-unstable.jdk25_headless
 
     # Libraries, dependencies, drivers
     kdePackages.qt6ct
@@ -246,6 +273,8 @@ in
     # intel-ocl # Opencl runtime for intel
 
   ];
+
+  services.flatpak.enable = true;
 
   # got from https://unix.stackexchange.com/questions/379632/how-to-set-the-default-browser-in-nixos
   xdg.mime.defaultApplications = {
@@ -275,6 +304,7 @@ in
   # programs.ydotool.enable = true;
   programs.steam = {
     enable = true;
+    protontricks.enable = true;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
@@ -298,30 +328,6 @@ in
   # services.displayManager.enable = true;
 
   # Sound
-  security.sudo.extraRules = [
-    {
-      users = [
-        "taham"
-      ];
-      groups = [
-        "uinput"
-        "users"
-      ];
-      commands = [
-        {
-          command = "/run/current-system/sw/bin/ydotool";
-          options = [ "NOPASSWD" ];
-        }
-        {
-          command = "/run/current-system/sw/bin/ydotoold";
-          options = [ "NOPASSWD" ];
-        }
-        {
-          command = "/run/current-system/sw/bin/nethogs";
-        }
-      ];
-    }
-  ];
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true; # if not already enabled

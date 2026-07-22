@@ -15,11 +15,11 @@
       ids = [ "*" ];
       settings = {
         main = {
-          fn = "control";
+          fn = "leftcontrol";
           capslock = "overload(capslock_layer, esc)";
           "S-capslock" = "toggle(nav-toggled)";
-
         };
+
         "nav-toggled" = {
           w = "up";
           a = "left";
@@ -27,11 +27,12 @@
           d = "right";
 
           # Pressing Shift + Caps Lock again turns it off
-          "S-capslock" = "toggle(nav)";
+          "S-capslock" = "toggle(nav-toggled)";
 
           # Pressing Escape clears all active layers (returns to normal typing)
-          esc = "clearm()";
+          esc = "clear()";
         };
+
         capslock_layer = {
           # Movement
 

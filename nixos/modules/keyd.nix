@@ -16,7 +16,7 @@
       settings = {
         main = {
           wakeup = "overload(control, wakeup)";
-          rightcontrol = "rightcontrol";
+          rightcontrol = "iso";
           rightshift = "rightshift";
           capslock = "overload(capslock_layer, esc)";
           "S-capslock" = "toggle(nav-toggled)";

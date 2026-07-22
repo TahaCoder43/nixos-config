@@ -19,6 +19,13 @@
           capslock = "overload(capslock_layer, esc)";
         };
         capslock_layer = {
+          # Movement
+
+          w = "up";
+          a = "left";
+          s = "down";
+          d = "right";
+
           # Audio Controls
           f1 = "mute";
           f2 = "volumedown";

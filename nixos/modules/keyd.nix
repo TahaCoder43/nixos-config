@@ -21,10 +21,10 @@
         capslock_layer = {
           # Movement
 
-          w = "up";
-          a = "left";
-          s = "down";
-          d = "right";
+          "letter(w)" = "up";
+          "letter(a)" = "left";
+          "letter(s)" = "down";
+          "letter(d)" = "right";
 
           # Audio Controls
           f1 = "mute";

@@ -192,6 +192,7 @@ in
     git
     jq
     mailutils
+    nmap
     pkgs-unstable.ollama
     # pkgs-unstable.python313Packages.paddleocr
     ripgrep # grep alternative

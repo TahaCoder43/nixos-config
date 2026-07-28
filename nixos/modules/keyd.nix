@@ -17,7 +17,7 @@
         main = {
           rightcontrol = "togglem(rctrl_layer, rightcontrol)";
           rightshift = "rightshift";
-          capslock = "overload(control, esc)";
+          capslock = "layer(control)";
           S-capslock = "toggle(nav_toggled)";
         };
 
@@ -28,6 +28,7 @@
 
         rctrl_layer = {
           capslock = "iso-level3-shift";
+          wakeup = "overload(control, wakeup)";
         };
 
         nav_toggled = {
@@ -41,35 +42,6 @@
 
           # Pressing Escape clears all active layers (returns to normal typing)
           esc = "clear()";
-        };
-
-        capslock_layer = {
-          # Movement
-
-          w = "up";
-          a = "left";
-          s = "down";
-          d = "right";
-
-          # Audio Controls
-          f1 = "mute";
-          f2 = "volumedown";
-          f3 = "volumeup";
-          f4 = "micmute";
-
-          # Display Brightness
-          f5 = "brightnessdown";
-          f6 = "brightnessup";
-
-          # Display / Connectivity
-          f7 = "displaytoggle";
-          f8 = "wlan";
-
-          # Media & Settings
-          f9 = "config";
-          f10 = "previoussong";
-          f11 = "playpause";
-          f12 = "nextsong";
         };
       };
     };

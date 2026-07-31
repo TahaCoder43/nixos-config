@@ -17,13 +17,15 @@
         main = {
           rightcontrol = "togglem(rctrl_layer, rightcontrol)";
           rightshift = "rightshift";
-          capslock = "layer(control)";
+          capslock = "overload(control, capslock)";
           S-capslock = "toggle(nav_toggled)";
         };
 
-        control = {
-          d = "C-d";
-          s = "C-s";
+        alt = {
+          w = "up";
+          a = "left";
+          s = "down";
+          d = "right";
         };
 
         rctrl_layer = {

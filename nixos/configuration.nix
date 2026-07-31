@@ -177,6 +177,7 @@ in
     oh-my-posh
     vim
     bluez
+    yazi
 
     # Terminals, shells, multiplexers
     antigen

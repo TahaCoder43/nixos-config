@@ -117,6 +117,7 @@ in
       "ydotool"
       "uinput"
       "input"
+      "kvm"
     ];
     shell = pkgs.zsh;
     packages = with pkgs; [
@@ -260,7 +261,6 @@ in
     motrix
     gnome-clocks
     pkgs.android-studio
-    # pkgs-unstable.jdk25_headless
 
     # Libraries, dependencies, drivers
     kdePackages.qt6ct

@@ -19,7 +19,6 @@ in
   };
   environment.systemPackages = [
     androidComposition.androidsdk
-    pkgs.android-studio
   ];
 
 }

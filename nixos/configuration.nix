@@ -259,7 +259,7 @@ in
     qbittorrent
     motrix
     gnome-clocks
-    # pkgs-unstable.alterware-launcher
+    pkgs.android-studio
     # pkgs-unstable.jdk25_headless
 
     # Libraries, dependencies, drivers

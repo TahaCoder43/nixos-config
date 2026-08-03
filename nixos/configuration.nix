@@ -45,7 +45,7 @@ in
     # ./modules/cage-xtmapper.nix
     # ./modules/mdn-cli.nix
     # ./modules/swhkd.nix
-    # ./modules/android-dev.nix
+    ./modules/android-dev.nix
   ];
 
   # Bootloader.

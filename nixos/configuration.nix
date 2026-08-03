@@ -199,9 +199,6 @@ in
     ripgrep # grep alternative
     tree
     wget
-    # sdkmanager
-    # apksigner
-    # androidenv.androidPkgs.tools
     # remember to add zoxide
 
     # Utility tools
@@ -235,7 +232,6 @@ in
     gimp
     kdePackages.dolphin
     kdePackages.gwenview
-    kdePackages.kamera
     kdePackages.qtsvg
     kdePackages.filelight
     # kdePackages.kdenlive

@@ -14,6 +14,9 @@ in
 {
 
   nixpkgs.config.android_sdk.accept_license = true;
+  environment.variables = {
+    ANDROID_HOME = "${androidComposition.androidsdk}";
+  };
   environment.systemPackages = [
     androidComposition.androidsdk
     pkgs.android-studio

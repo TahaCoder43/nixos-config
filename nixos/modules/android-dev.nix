@@ -16,6 +16,7 @@ in
   nixpkgs.config.android_sdk.accept_license = true;
   environment.systemPackages = [
     androidComposition.androidsdk
+    pkgs.android-studio
   ];
 
 }

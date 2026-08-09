@@ -132,6 +132,7 @@ in
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.rocmSupport = true;
 
   environment.sessionVariables = {
     YDOTOOL_SOCKET = "/home/taham/.ydotool_socket";

@@ -16,7 +16,7 @@
       settings = {
         main = {
           rightcontrol = "togglem(rctrl_layer, rightcontrol)";
-          rightshift = "overload(shift, enter)";
+          rightalt = "overload(alt, enter)";
           leftmeta = "overload(meta, m)";
           leftalt = "overload(alt, c)";
           capslock = "overload(control, capslock)";

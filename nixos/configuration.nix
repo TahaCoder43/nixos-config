@@ -206,6 +206,7 @@ in
     # Utility tools
     aria2
     dig
+    evtest
     exiftool
     file
     inputs.nix-autobahn.packages."${pkgs.system}".nix-autobahn
@@ -274,6 +275,7 @@ in
   ];
 
   services.flatpak.enable = true;
+  services.input-remapper.enable = true;
 
   # got from https://unix.stackexchange.com/questions/379632/how-to-set-the-default-browser-in-nixos
   xdg.mime.defaultApplications = {

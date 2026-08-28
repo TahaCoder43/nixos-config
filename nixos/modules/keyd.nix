@@ -14,13 +14,31 @@
     default = {
       ids = [ "*" ];
       settings = {
+        global = {
+          # Increase to 150ms or 200ms so you don't have to press them frame-perfectly
+          chord_timeout = 200;
+        };
         main = {
           rightcontrol = "togglem(rctrl_layer, rightcontrol)";
+          capslock = "overload(control, esc)";
+
           rightalt = "overload(alt, enter)";
           leftmeta = "overload(meta, m)";
           leftalt = "overload(alt, c)";
-          capslock = "overload(control, capslock)";
-          S-capslock = "toggle(nav_toggled)";
+          sysrq = "v";
+
+          "wakeup+j" = "comma";
+          "scrolllock" = "dot";
+          "wakeup+l" = "backslash";
+          "S-f3" = "macro(f3+f6)";
+
+          "S-wakeup+j" = "S-comma";
+          "S-scrolllock" = "S-dot";
+          "S-wakeup+l" = "S-backslash";
+        };
+
+        shift = {
+          capslock = "toggle(nav_toggled)";
         };
 
         alt = {

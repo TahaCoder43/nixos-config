@@ -39,6 +39,7 @@ in
     ./modules/n8n.nix
     ./modules/flameshot.nix
     ./modules/keyd.nix
+    ./modules/voxd.nix
     # ./modules/udev.nix
     ./modules/sudo-rules.nix
     # ./modules/postfix.nix

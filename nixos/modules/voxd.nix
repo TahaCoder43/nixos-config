@@ -10,15 +10,15 @@ let
     hash = "";
   };
 
-  voxd = pkgs.python3Packages.buildPythonPackages rec {
+  voxd = pkgs.python3Packages.buildPythonPackage rec {
     name = "voxd";
     version = "1.7.0";
 
     src = pkgs.fetchFromGitHub {
-      owner = "adi1090x";
-      repo = "rofi";
+      owner = "jakovius";
+      repo = "voxd";
       tag = "v${version}";
-      hash = "";
+      hash = "sha256-A02lNyBO0XkDL7rSG3rgTW/q6R4SqBkyTLr1GZV2NW8=";
     };
 
     build-system = [ pkgs.python3Packages.setuptools ];
@@ -74,5 +74,5 @@ let
   };
 in
 {
-
+  environment.systemPackages = [ voxd ];
 }

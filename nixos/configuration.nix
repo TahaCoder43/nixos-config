@@ -39,7 +39,7 @@ in
     ./modules/n8n.nix
     ./modules/flameshot.nix
     ./modules/keyd.nix
-    ./modules/voxd.nix
+    # ./modules/voxd.nix
     # ./modules/udev.nix
     ./modules/sudo-rules.nix
     # ./modules/postfix.nix
@@ -281,6 +281,10 @@ in
   # got from https://unix.stackexchange.com/questions/379632/how-to-set-the-default-browser-in-nixos
   xdg.mime.defaultApplications = {
     "text/html" = "microsoft-edge.desktop";
+    "video/mp4" = "vlc.desktop";
+    "video/x-matroska" = "vlc.desktop"; # .mkv
+    "video/webm" = "vlc.desktop";
+    "video/x-msvideo" = "vlc.desktop"; # .avi
     "x-scheme-handler/http" = "microsoft-edge.desktop";
     "x-scheme-handler/https" = "microsoft-edge.desktop";
     "x-scheme-handler/about" = "microsoft-edge.desktop";

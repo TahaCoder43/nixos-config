@@ -337,6 +337,7 @@ in
   security.rtkit.enable = true;
   security.wrappers = {
     ffmpeg = {
+      # for kmsgrab to record screen in wayland
       source = "${pkgs.ffmpeg_6-full}/bin/ffmpeg";
       capabilities = "cap_sys_admin+ep";
       owner = "root";

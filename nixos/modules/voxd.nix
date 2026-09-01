@@ -3,11 +3,12 @@
 let
   whisperModel = pkgs.fetchurl {
     url = "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.en.bin";
-    hash = "";
+    hash = "sha256-oDd5yG3zMjB19eeWyyzlAp8A7Ihp7uP9+4l6/jbG0AI=";
   };
   qwenModel = pkgs.fetchurl {
     url = "https://huggingface.co/Qwen/Qwen2.5-3B-Instruct-GGUF/resolve/main/qwen2.5-3b-instruct-q4_k_m.gguf";
     hash = "";
+    curlOpts = "-L";
   };
 
   voxd = pkgs.python3Packages.buildPythonPackage rec {

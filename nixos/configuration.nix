@@ -39,9 +39,9 @@ in
     ./modules/n8n.nix
     ./modules/flameshot.nix
     ./modules/keyd.nix
+    ./modules/sudo-rules.nix
     # ./modules/voxd.nix
     # ./modules/udev.nix
-    ./modules/sudo-rules.nix
     # ./modules/postfix.nix
     # ./modules/cage-xtmapper.nix
     # ./modules/mdn-cli.nix
@@ -335,6 +335,14 @@ in
 
   # Sound
   security.rtkit.enable = true;
+  security.wrappers = {
+    ffmpeg = {
+      source = "${pkgs.ffmpeg_6-full}/bin/ffmpeg";
+      capabilities = "cap_sys_admin+ep";
+      owner = "root";
+      group = "root";
+    };
+  };
   services.pipewire = {
     enable = true; # if not already enabled
     alsa.enable = true;

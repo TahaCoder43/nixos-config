@@ -7,13 +7,14 @@ let
   };
   qwenModel = pkgs.fetchurl {
     url = "https://huggingface.co/Qwen/Qwen2.5-3B-Instruct-GGUF/resolve/main/qwen2.5-3b-instruct-q4_k_m.gguf";
-    hash = "";
+    hash = "sha256-YmtKZni4ZEIkDjPfgZ4AEy07p93f4c3E+7GOCpYVxi0=";
     curlOpts = "-L";
   };
 
-  voxd = pkgs.python3Packages.buildPythonPackage rec {
+  voxd = pkgs.python3Packages.buildPythonApplication rec {
     name = "voxd";
     version = "1.7.0";
+    pyproject = true;
 
     src = pkgs.fetchFromGitHub {
       owner = "jakovius";
@@ -22,7 +23,16 @@ let
       hash = "sha256-A02lNyBO0XkDL7rSG3rgTW/q6R4SqBkyTLr1GZV2NW8=";
     };
 
-    build-system = [ pkgs.python3Packages.setuptools ];
+    # Patch the invalid version string in pyproject.toml credit: https://github.com/bobvanderlinden/nixos-config/blob/master/packages/voxd/package.nix
+    postPatch = ''
+      substituteInPlace pyproject.toml \
+        --replace-fail 'version = "mr.batman"' 'version = "${version}"'
+    '';
+
+    # Skip tests as they may require audio devices or models credit: https://github.com/bobvanderlinden/nixos-config/blob/master/packages/voxd/package.nix
+    doCheck = false;
+
+    build-system = [ pkgs.python3Packages.hatchling ];
 
     dependencies = with pkgs.python3Packages; [
       numpy
@@ -37,31 +47,43 @@ let
       tqdm
     ];
 
-    nativeBuildInputs = [
-      pkgs.makeWrapper
-    ];
+    # nativeBuildInputs = with pkgs; [
+    #   makeWrapper
+    #   cmake
+    # ];
+    #
+    # buildInputs = with pkgs; [
+    #   # Core tools
+    #   git
+    #   curl
+    #   ffmpeg
+    #   whisper-cpp
+    #   python3
+    #
+    #   # Clipboard & Automation (Wayland + X11)
+    #   wl-clipboard
+    #   wtype # Wayland alternative to xdotool
+    #   xclip
+    #   xsel
+    #   xdotool
+    #
+    #   xorg.xcbutilcursor
+    #   xorg.xcbutilwm
+    #   xorg.libXinerama
+    #
+    #   portaudio
+    # ];
 
-    buildInputs = with pkgs; [
-      # Core tools
-      git
-      curl
-      ffmpeg
-      cmake
-      whisper-cpp
-      python3
-
-      # Clipboard & Automation (Wayland + X11)
-      wl-clipboard
-      wtype # Wayland alternative to xdotool
-      xclip
-      xsel
-      xdotool
-
-      xorg.xcbutilcursor
-      xorg.xcbutilwm
-      xorg.libXinerama
-
-      portaudio
+    # Runtime dependencies for clipboard and typing functionality
+    makeWrapperArgs = with pkgs; [
+      "--prefix PATH : ${
+        lib.makeBinPath [
+          ydotool
+          xclip
+          wl-clipboard
+          pulseaudio
+        ]
+      }"
     ];
 
     # Downloading models

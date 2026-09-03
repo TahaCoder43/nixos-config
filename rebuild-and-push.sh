@@ -3,6 +3,7 @@
 commit_message=${1:-'Updating configuration.nix (likely)'}
 
 git add .
+git status -v -v
 
 if git status -s | grep -E "(\.nix|flake\.lock)$"; then # also acounts for hardwaree-configuration.nix remember
     sudo nixos-rebuild switch --option access-tokens "github.com=$(cat .github_access)"
@@ -11,6 +12,7 @@ fi
 if [[ $? -gt 0 ]]; then
     exit 1
 fi
+
 
 git commit -m "$commit_message"
 git push --set-upstream origin main

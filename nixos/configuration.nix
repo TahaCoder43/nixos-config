@@ -40,7 +40,7 @@ in
     ./modules/flameshot.nix
     ./modules/keyd.nix
     ./modules/sudo-rules.nix
-    # ./modules/voxd.nix
+    ./modules/voxd.nix
     # ./modules/udev.nix
     # ./modules/postfix.nix
     # ./modules/cage-xtmapper.nix

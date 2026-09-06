@@ -16,6 +16,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-autobahn.url = "github:Lassulus/nix-autobahn";
+    llm-agents.url = "github:numtide/llm-agents.nix";
   };
   outputs =
     {
@@ -23,6 +24,7 @@
       nixpkgs,
       nur,
       home-manager,
+      llm-agents,
       unstable,
       ...
     }@inputs:

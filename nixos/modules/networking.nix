@@ -19,6 +19,8 @@
         General = {
           EnableNetworkConfiguration = true; # Use iwd built in dhcp client
           AddressRandomization = "disabled";
+          ManagementFrameProtection = 1; # weird hotpsot not connecting bug
+          ControlPortOverNL80211 = "false"; # also weird hotspot bug
         };
         Network = {
           NameResolvingService = "none"; # Prevent dynamic dns

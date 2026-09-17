@@ -210,6 +210,7 @@ in
     evtest
     exiftool
     file
+    # inputs.llm-agents.packages.${pkgs.system}.voxtype
     inputs.nix-autobahn.packages."${pkgs.system}".nix-autobahn
     iotop
     libinput # to debug input events

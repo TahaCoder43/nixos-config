@@ -204,19 +204,21 @@ in
     wget
     # remember to add zoxide
 
-    # Utility tools
+    # Utility tools and important libraries
     aria2
     dig
     evtest
     exiftool
     file
+    gammastep
     # inputs.llm-agents.packages.${pkgs.system}.voxtype
     inputs.nix-autobahn.packages."${pkgs.system}".nix-autobahn
     iotop
     libinput # to debug input events
     lshw
-    usbutils
+    libmtp
     libnotify
+    usbutils
     openvpn
     nethogs
     ntfs3g # Required to be able to work with ntfs file system
@@ -233,18 +235,21 @@ in
     yt-dlp
 
     # GUIs, icon packs, layouts
+    android-studio
     awatcher
+    eyedropper
+    fragments
     gimp
+    gnome-clocks
     kdePackages.dolphin
     kdePackages.gwenview
     kdePackages.qtsvg
     kdePackages.filelight
     # kdePackages.kdenlive
+    localsend
     microsoft-edge
-    # protonvpn-gui
-    sqlitebrowser
-    swaynotificationcenter
-    slurp
+    obs-studio
+    motrix
     # unstable.activitywatch # for some reason stable version failed to build, meanwhile unstable succeded ????
     (pkgs-unstable.python3.withPackages (
       ps: with ps; [
@@ -252,19 +257,15 @@ in
         jupyterlab-vim
       ]
     ))
+    sqlitebrowser
+    swaynotificationcenter
+    slurp
+    qbittorrent
     unstable.inkscape
     vlc
     webfontkitgenerator
     wf-recorder
     wl-color-picker
-    eyedropper
-    obs-studio
-    gammastep
-    fragments
-    qbittorrent
-    motrix
-    gnome-clocks
-    pkgs.android-studio
 
     # Libraries, dependencies, drivers
     kdePackages.qt6ct

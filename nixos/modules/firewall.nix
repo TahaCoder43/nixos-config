@@ -5,6 +5,7 @@
     checkReversePath = false;
     allowedTCPPorts = [
       4321
+      53317
     ];
   };
 }

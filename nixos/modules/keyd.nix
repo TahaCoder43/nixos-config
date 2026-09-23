@@ -37,10 +37,6 @@
           "S-wakeup+l" = "S-backslash";
         };
 
-        shift = {
-          capslock = "toggle(nav_toggled)";
-        };
-
         alt = {
           w = "up";
           a = "left";
@@ -51,19 +47,6 @@
         rctrl_layer = {
           capslock = "iso-level3-shift";
           wakeup = "overload(control, wakeup)";
-        };
-
-        nav_toggled = {
-          w = "up";
-          a = "left";
-          s = "down";
-          d = "right";
-
-          # Pressing Shift + Caps Lock again turns it off
-          "S-capslock" = "toggle(nav_toggled)";
-
-          # Pressing Escape clears all active layers (returns to normal typing)
-          esc = "clear()";
         };
       };
     };

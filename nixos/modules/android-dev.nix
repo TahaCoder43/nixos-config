@@ -1,24 +1,14 @@
-{ pkgs, ... }:
-let
-  androidComposition = pkgs.androidenv.composeAndroidPackages {
-    platformVersions = [
-      "34"
-    ];
-    buildToolsVersions = [
-      "34.0.0"
-    ];
-    includeEmulator = true;
-    includeSystemImages = true;
-  };
-in
+{ ... }:
 {
-
-  nixpkgs.config.android_sdk.accept_license = true;
-  environment.variables = {
-    ANDROID_HOME = "${androidComposition.androidsdk}";
-  };
-  environment.systemPackages = [
-    androidComposition.androidsdk
+  nixpkgs.overlays = [
+    (final: prev: {
+      android-studio = prev.android-studio.overrideAttrs (old: {
+        nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ prev.makeWrapper ];
+        postInstall = (old.postInstall or "") + ''
+          wrapProgram $out/bin/android-studio \
+            --set QT_QPA_PLATFORM "xcb"
+        '';
+      });
+    })
   ];
-
 }

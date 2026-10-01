@@ -46,7 +46,7 @@ in
     # ./modules/cage-xtmapper.nix
     # ./modules/mdn-cli.nix
     # ./modules/swhkd.nix
-    # ./modules/android-dev.nix
+    ./modules/android-dev.nix
   ];
 
   # Bootloader.
@@ -235,6 +235,15 @@ in
     yt-dlp
 
     # GUIs, icon packs, layouts
+    # (android-studio.overrideAttrs (
+    #   oldAttrs:
+    #   makeDesktopItem (
+    #     oldAttrs.desktopItem
+    #     // {
+    #       exec = "QT_QPA_PLATFORM=wayland ${oldAttrs.pname}";
+    #     }
+    #   )
+    # ))
     android-studio
     awatcher
     eyedropper

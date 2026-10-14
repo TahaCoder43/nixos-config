@@ -19,7 +19,7 @@
           chord_timeout = 200;
         };
         main = {
-          rightcontrol = "togglem(rctrl_layer, rightcontrol)";
+          rightcontrol = "togglem(arabic, rightcontrol)";
           capslock = "overload(control, esc)";
 
           rightalt = "overload(alt, enter)";
@@ -44,8 +44,9 @@
           d = "right";
         };
 
-        rctrl_layer = {
-          capslock = "overload(iso-level3-shift, esc)";
+        arabic = {
+          ## changing it to iso-level3-shift
+          capslock = "overload(altgr, esc)";
           wakeup = "overload(control, wakeup)";
         };
       };

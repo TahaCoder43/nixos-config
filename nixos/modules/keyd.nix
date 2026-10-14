@@ -45,7 +45,7 @@
         };
 
         rctrl_layer = {
-          capslock = "iso-level3-shift";
+          capslock = "overload(iso-level3-shift, esc)";
           wakeup = "overload(control, wakeup)";
         };
       };

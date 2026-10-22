@@ -23,8 +23,6 @@
           capslock = "overload(control, esc)";
 
           rightalt = "overload(alt, enter)";
-          leftmeta = "overload(meta, m)";
-          leftalt = "overload(alt, c)";
           sysrq = "v";
 
           "wakeup+j" = "comma";

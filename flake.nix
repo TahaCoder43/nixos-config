@@ -3,6 +3,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs26.url = "github:NixOS/nixpkgs/nixos-26.05";
     translate-onscreen-arabic = {
       url = "github:TahaCoder43/TranslateArabicOnScreen";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,6 +27,7 @@
       home-manager,
       llm-agents,
       unstable,
+      nixpkgs26,
       ...
     }@inputs:
     {
@@ -34,6 +36,10 @@
         specialArgs = {
           inherit inputs;
           pkgs-unstable = import unstable {
+            inherit system;
+            config.allowUnfree = true;
+          };
+          nixpkgs26 = import nixpkgs26 {
             inherit system;
             config.allowUnfree = true;
           };

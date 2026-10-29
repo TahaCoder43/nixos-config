@@ -11,4 +11,6 @@
       });
     })
   ];
+
+  programs.adb.enable = true;
 }

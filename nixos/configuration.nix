@@ -7,6 +7,7 @@
   lib,
   inputs,
   pkgs-unstable,
+  nixpkgs26,
   ...
 }:
 
@@ -119,6 +120,8 @@ in
       "uinput"
       "input"
       "kvm"
+      "plugdev"
+      "docker"
     ];
     shell = pkgs.zsh;
     packages = with pkgs; [
@@ -232,7 +235,7 @@ in
     wl-clipboard
     wlr-randr
     ydotool
-    yt-dlp
+    nixpkgs26.yt-dlp
 
     # GUIs, icon packs, layouts
     # (android-studio.overrideAttrs (
@@ -361,6 +364,8 @@ in
     alsa.support32Bit = true;
     pulse.enable = true;
   };
+
+  virtualisation.docker.enable = true;
 
   # services.openvpn.servers = {
   #   homeVPN = {

@@ -13,7 +13,6 @@ pkgs.stdenv.mkDerivation {
 
   dontBuild = true;
   dontUnpack = true;
-  dontPatchElf = true;
   installPhase = ''
     mkdir -p $out/bin
     gunzip -dc $src > $out/bin/tmole
@@ -21,10 +20,10 @@ pkgs.stdenv.mkDerivation {
     chmod u+x $out/bin/tmole $out/bin/tunnelmole
   '';
 
-  # nativeBuildInputs = [ pkgs.autoPatchelfHook ];
-  # buildInputs = [
-  #   pkgs.libgcc
-  #   pkgs.stdenv.cc.cc.lib
-  # ];
+  nativeBuildInputs = [ pkgs.autoPatchelfHook ];
+  buildInputs = [
+    pkgs.libgcc
+    pkgs.stdenv.cc.cc.lib
+  ];
 
 }

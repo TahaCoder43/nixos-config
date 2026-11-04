@@ -18,6 +18,7 @@ pkgs.stdenv.mkDerivation {
     mkdir -p $out/bin
     gunzip -dc $src > $out/bin/tmole
     ln -sf $out/bin/tmole $out/bin/tunnelmole
+    chmod u+x $out/bin/tmole $out/bin/tunnelmole
   '';
 
   # nativeBuildInputs = [ pkgs.autoPatchelfHook ];

@@ -8,6 +8,12 @@
       url = "github:TahaCoder43/TranslateArabicOnScreen";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # tunnelmole = {
+    #   url = "github:robbie-cahill/tunnelmole-client";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    #   # This can be added if you want to just fetch something from a github repo
+    #   # flake = "false";
+    # };
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -28,6 +34,7 @@
       llm-agents,
       unstable,
       nixpkgs26,
+      # tunnelmole,
       ...
     }@inputs:
     {

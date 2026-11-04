@@ -42,6 +42,7 @@ in
     ./modules/keyd.nix
     ./modules/sudo-rules.nix
     ./modules/voxd.nix
+    ./modules/docker.nix
     # ./modules/udev.nix
     # ./modules/postfix.nix
     # ./modules/cage-xtmapper.nix
@@ -121,7 +122,6 @@ in
       "input"
       "kvm"
       "plugdev"
-      "docker"
     ];
     shell = pkgs.zsh;
     packages = with pkgs; [
@@ -204,6 +204,7 @@ in
     # pkgs-unstable.python313Packages.paddleocr
     ripgrep # grep alternative
     tree
+    (import ./derivations/tunnelmole.nix { pkgs = pkgs; })
     wget
     # remember to add zoxide
 
@@ -364,8 +365,6 @@ in
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-
-  virtualisation.docker.enable = true;
 
   # services.openvpn.servers = {
   #   homeVPN = {

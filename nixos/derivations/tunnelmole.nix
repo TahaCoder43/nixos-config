@@ -21,10 +21,10 @@ pkgs.stdenv.mkDerivation {
     chmod u+x $out/bin/tmole $out/bin/tunnelmole
   '';
 
-  # nativeBuildInputs = [ pkgs.autoPatchelfHook ];
-  # buildInputs = [
-  #   pkgs.libgcc
-  #   pkgs.stdenv.cc.cc.lib
-  # ];
+  nativeBuildInputs = [ pkgs.autoPatchelfHook ];
+  buildInputs = [
+    pkgs.libgcc
+    pkgs.stdenv.cc.cc.lib
+  ];
 
 }

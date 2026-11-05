@@ -306,6 +306,7 @@ in
     "x-scheme-handler/unknown" = "microsoft-edge.desktop";
   };
 
+  programs.firefox.enable = true;
   programs.git.config = {
     enable = true;
     init.defaultBranch = "main";
@@ -314,15 +315,21 @@ in
       name = "Taha ibn Munawar";
     };
   };
-  programs.zsh = {
+  programs.gnupg.agent.enable = true;
+  programs.nix-ld = {
     enable = true;
-    shellInit = ''
-      source ${pkgs.antigen}/share/antigen/antigen.zsh
-    '';
+    libraries = with pkgs; [
+      stdenv.cc.cc
+      zlib
+      fuse3
+      icu
+      nss
+      openssl
+      curl
+      expat
+    ];
   };
-  programs.firefox.enable = true;
   programs.ssh.startAgent = true;
-  # programs.ydotool.enable = true;
   programs.steam = {
     enable = true;
     protontricks.enable = true;
@@ -331,10 +338,13 @@ in
     localNetworkGameTransfers.openFirewall = true;
     extraCompatPackages = [ pkgs.proton-ge-bin ];
   };
-
-  programs.nix-ld.enable = true;
-
-  programs.gnupg.agent.enable = true;
+  # programs.ydotool.enable = true;
+  programs.zsh = {
+    enable = true;
+    shellInit = ''
+      source ${pkgs.antigen}/share/antigen/antigen.zsh
+    '';
+  };
 
   # in your home.nix
   nixpkgs.config.allowUnfreePredicate =

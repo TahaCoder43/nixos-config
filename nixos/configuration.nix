@@ -223,9 +223,10 @@ in
     libmtp
     libnotify
     usbutils
-    openvpn
+    mullvad-vpn
     nethogs
     ntfs3g # Required to be able to work with ntfs file system
+    openvpn
     p7zip
     pciutils # provides lspci command to show usb device information
     smartmontools # hard disk smart test runner
